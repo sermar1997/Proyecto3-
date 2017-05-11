@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="Panel" alignment="0" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <Component id="Panel" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="Panel">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="99" green="ff" red="ff" type="rgb"/>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="BañadePropietario" alignment="1" max="32767" attributes="0"/>
+                      <Component id="bListadoVehiculos" alignment="1" pref="365" max="32767" attributes="0"/>
+                      <Component id="bFicheroXML" alignment="1" max="32767" attributes="0"/>
+                      <Component id="bListadoProp" alignment="1" max="32767" attributes="0"/>
+                      <Component id="bBajaProp" max="32767" attributes="0"/>
+                      <Component id="BañadeVehiculo" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                  <Component id="BañadeVehiculo" min="-2" pref="33" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="BañadePropietario" min="-2" pref="33" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="bListadoVehiculos" min="-2" pref="35" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                  <Component id="bBajaProp" min="-2" pref="31" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="bListadoProp" min="-2" pref="31" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="bFicheroXML" min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="Ba&#xf1;adeVehiculo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="A&#xf1;adir Veh&#xed;culos a la Base de Datos"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Ba&#xf1;adeVehiculoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="Ba&#xf1;adePropietario">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="A&#xf1;adir Propietario"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Ba&#xf1;adePropietarioActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bListadoVehiculos">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Mostrar un Listado de todos los vehiculos"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bListadoVehiculosActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bBajaProp">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Dar de baja a un propietario"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bBajaPropActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bListadoProp">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Mostrar un listado de propietarios"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bListadoPropActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bFicheroXML">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Exportar los datos a un fichero XML"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>
