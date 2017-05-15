@@ -121,15 +121,10 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
 
         PreparedStatement ps = null;
         try {
-            if (!validarMatricula()) {
-                JOptionPane.showMessageDialog(this, "Tienes que poner una matrícula correcta");
-            }
             if (!validarAño()) {
                 JOptionPane.showMessageDialog(this, "Tienes que poner un año correcto");
             }
-            if (!compruebaDNI(tProp.getText())) {
-                JOptionPane.showMessageDialog(this, "Tienes que poner un dni correcto");
-            }
+
             ps = conn.prepararSentencia("INSERT INTO VEHICULO VALUES (?,?,?,?)");
             ps.setString(1, tMatricula.getText());
             ps.setString(2, tModelo.getText());
@@ -150,64 +145,22 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
         }
         JOptionPane.showMessageDialog(this, "¡VEHICULO AÑADIDO!");
     }//GEN-LAST:event_bAñadirActionPerformed
-    private boolean compruebaDNI(String dni) {
-        String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
-        String numeros = "0123456789";
-        String NIE = "XYZ";
-        int pos;
-        //Si no tiene longitud 9 ya ni sigo
-        if (dni.length() == 9) {
-            String primera = dni.substring(0, 1);
-            System.out.println(dni.substring(0, 1));
-            //Si la primera letra es de dni extranjero
-            if (primera.toUpperCase().indexOf(NIE) != -1) {
-                //Si los caracteres del 1 al 7 son numéricos sigo con la comprobación
-                //si hay alguno que no lo es, el DNI ya es incorrecto
-                for (int i = 1; i < dni.length() - 1; i++) {
-                    if (numeros.indexOf(dni.substring(i, i + 1)) == -1) {
-                        return false;
-                    }
-                }
-
-                //Sustituyo la primera letra del NIE por el número al que se corresponde para
-                //calcular el dígito de control.
-                String num;
-                if (primera.toUpperCase().equals("X")) {
-                    num = "0";
-                } else if (primera.toUpperCase().equals("Y")) {
-                    num = "1";
-                } else {
-                    num = "2";
-                }
-                //Calculo y compruebo el dígito de control
-                //Si está mal ya devuelvo false
-                int numDni = Integer.parseInt("0" + dni.substring(1, 7));
-                pos = numDni % 23;
-                System.out.println(pos = numDni % 23);
-                if (!dni.substring(7, 8).equalsIgnoreCase(letras.substring(pos, pos + 1))) {
-                    return false;
-                }
-                //Si no es un DNI extranjero, sino que es de un español
-            } else {
-                //Compruebo que todos los caracteres menos el último son
-                //dígitos, si no devuelvo false
-                for (int i = 0; i < dni.length() - 1; i++) {
-                    if (numeros.indexOf(dni.substring(i, i + 1)) == -1) {
-                        return false;
-                    }
-                }
-                //Calculo el dígito de control
-                int numDni = Integer.parseInt(dni.substring(0, 8));
-                pos = numDni % 23;
-                System.out.println(dni.substring(8, 9));
-                if (!dni.substring(8, 9).equalsIgnoreCase(letras.substring(pos, pos + 1))) {
-                    return false;
-                }
-            }
-            //Si ha llegado hasta aquí es porque es correcto
-            return true;
+    public boolean validaTodo() {
+        boolean correcto = false;
+        if (validarMatricula()) {
+            correcto = true;
+        } else {
+            JOptionPane.showMessageDialog(this, "Tienes que poner una matrícula correcta");
+            correcto = false;
         }
-        return false;
+        if (validarAño()) {
+            correcto = true;
+        } else {
+            JOptionPane.showMessageDialog(this, "Tienes que introducir un año correcto");
+            correcto = false;
+        }
+
+        return correcto;
     }
 
     public boolean validarMatricula() {

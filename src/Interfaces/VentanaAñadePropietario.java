@@ -6,6 +6,8 @@
 package Interfaces;
 
 import Conexión.Conexion;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -49,7 +51,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
         tProvincia = new javax.swing.JTextField();
         tLefono = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         bAñadir.setText("Añadir Propietario");
         bAñadir.addActionListener(new java.awt.event.ActionListener() {
@@ -137,19 +139,175 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAñadirActionPerformed
-        if (!validaNombre()) {
-            JOptionPane.showMessageDialog(this, "El nombre contiene números");
+        boolean correcto;
+        PreparedStatement ps = null;
+        try {
+
+            if (validaTodo()) {
+                ps = conn.prepararSentencia("INSERT INTO PROPIETARIO VALUES (?,?,?,?,?)");
+                ps.setString(1, tDni.getText());
+                ps.setString(2, tNombre.getText());
+                ps.setString(3, tApellido.getText());
+                ps.setString(4, tLefono.getText());
+                ps.setString(5, tProvincia.getText());
+                int resultado = ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Propietario Añadido correctamente");
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            // Cerrar statement
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    ex.getMessage();
+                }
+            }
         }
     }//GEN-LAST:event_bAñadirActionPerformed
+    public boolean validaTodo() {
+        boolean correcto = false;
+        if (compruebaDNI(tDni.getText())) {
+            correcto = true;
+        } else {
+            JOptionPane.showMessageDialog(this, "Tienes que poner un dni correcto");
+            correcto = false;
+        }
+
+        if (validaNombre()) {
+            correcto = true;
+        } else {
+            JOptionPane.showMessageDialog(this, "Tienes que poner un nombre en el formato correcto");
+            correcto = false;
+        }
+
+        if (validaApellido()) {
+            correcto = true;
+        } else {
+            JOptionPane.showMessageDialog(this, "Tienes que poner un apellido en el formato correcto");
+            correcto = false;
+        }
+
+        if (validaTelefono()) {
+            correcto = true;
+        } else {
+            JOptionPane.showMessageDialog(this, "Tienes que poner un telefono en el formato correcto");
+            correcto = false;
+        }
+
+        if (validaProvincia()) {
+            correcto = true;
+        } else {
+            JOptionPane.showMessageDialog(this, "Tienes que poner una provincia correcto");
+            correcto = false;
+        }
+        return correcto;
+    }
+
     public boolean validaNombre() {
-        Pattern pat = Pattern.compile("^[A-Za-z]$");
+        Pattern pat = Pattern.compile("^[A-Z].*[a-z].*");
         Matcher mat = pat.matcher(tNombre.getText());
         if (mat.matches()) {
             return true;
         } else {
+            JOptionPane.showMessageDialog(this, "Contiene números o no esta escrito en formato correcto: Primera letra Mayúsucula y las demás minúsculas");
             return false;
         }
     }
+
+    public boolean validaApellido() {
+        Pattern pat = Pattern.compile("^[A-Z].*[a-z].*");
+        Matcher mat = pat.matcher(tApellido.getText());
+        if (mat.matches()) {
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(this, "Contiene números o no esta escrito en formato correcto: Primera letra Mayúsucula y las demás minúsculas");
+            return false;
+        }
+    }
+
+    public boolean validaTelefono() {
+        Pattern pat = Pattern.compile(".*[0-9].*{9}");
+        Matcher mat = pat.matcher(tLefono.getText());
+        if (mat.matches()) {
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(this, "Teléfono incorrecto, solo se pueden 9 números");
+            return false;
+        }
+    }
+
+    public boolean validaProvincia() {
+        Pattern pat = Pattern.compile("(Zaragoza|Huesca|Teruel)");
+        Matcher mat = pat.matcher(tProvincia.getText());
+        if (mat.matches()) {
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(this, "Provincia de Aragón Incorrecta");
+            return false;
+        }
+    }
+
+    private boolean compruebaDNI(String dni) {
+        String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+        String numeros = "0123456789";
+        String NIE = "XYZ";
+        int pos;
+        //Si no tiene longitud 9 ya ni sigo
+        if (dni.length() == 9) {
+            String primera = dni.substring(0, 1);
+            System.out.println(dni.substring(0, 1));
+            //Si la primera letra es de dni extranjero
+            if (primera.toUpperCase().indexOf(NIE) != -1) {
+                //Si los caracteres del 1 al 7 son numéricos sigo con la comprobación
+                //si hay alguno que no lo es, el DNI ya es incorrecto
+                for (int i = 1; i < dni.length() - 1; i++) {
+                    if (numeros.indexOf(dni.substring(i, i + 1)) == -1) {
+                        return false;
+                    }
+                }
+
+                //Sustituyo la primera letra del NIE por el número al que se corresponde para
+                //calcular el dígito de control.
+                String num;
+                if (primera.toUpperCase().equals("X")) {
+                    num = "0";
+                } else if (primera.toUpperCase().equals("Y")) {
+                    num = "1";
+                } else {
+                    num = "2";
+                }
+                //Calculo y compruebo el dígito de control
+                //Si está mal ya devuelvo false
+                int numDni = Integer.parseInt("0" + dni.substring(1, 7));
+                pos = numDni % 23;
+                if (!dni.substring(7, 8).equalsIgnoreCase(letras.substring(pos, pos + 1))) {
+                    return false;
+                }
+                //Si no es un DNI extranjero, sino que es de un español
+            } else {
+                //Compruebo que todos los caracteres menos el último son
+                //dígitos, si no devuelvo false
+                for (int i = 0; i < dni.length() - 1; i++) {
+                    if (numeros.indexOf(dni.substring(i, i + 1)) == -1) {
+                        return false;
+                    }
+                }
+                //Calculo el dígito de control
+                int numDni = Integer.parseInt(dni.substring(0, 8));
+                pos = numDni % 23;
+                if (!dni.substring(8, 9).equalsIgnoreCase(letras.substring(pos, pos + 1))) {
+                    return false;
+                }
+            }
+            //Si ha llegado hasta aquí es porque es correcto
+            return true;
+        }
+        return false;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAñadir;

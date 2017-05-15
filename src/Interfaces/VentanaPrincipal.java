@@ -140,7 +140,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_BañadePropietarioActionPerformed
 
     private void bListadoVehiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bListadoVehiculosActionPerformed
-        VentanaMuestraListadoVehiculos v = new VentanaMuestraListadoVehiculos();
+        VentanaListadoVehiculos v = new VentanaListadoVehiculos(conn);
         v.setVisible(true);
     }//GEN-LAST:event_bListadoVehiculosActionPerformed
 
