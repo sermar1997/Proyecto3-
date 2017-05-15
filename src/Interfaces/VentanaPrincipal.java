@@ -145,12 +145,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_bListadoVehiculosActionPerformed
 
     private void bBajaPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBajaPropActionPerformed
-        VentanaBajaPropietario v = new VentanaBajaPropietario();
+        VentanaBajaPropietario v = new VentanaBajaPropietario(conn);
         v.setVisible(true);
     }//GEN-LAST:event_bBajaPropActionPerformed
 
     private void bListadoPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bListadoPropActionPerformed
-        VentanaListadoPropietarios v = new VentanaListadoPropietarios();
+        VentanaListadoPropietarios v = new VentanaListadoPropietarios(conn);
         v.setVisible(true);
     }//GEN-LAST:event_bListadoPropActionPerformed
 
