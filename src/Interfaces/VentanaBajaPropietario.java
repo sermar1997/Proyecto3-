@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,6 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class VentanaBajaPropietario extends javax.swing.JFrame {
 
+    DefaultTableModel modelo;
     Conexion conn;
 
     /**
@@ -31,6 +33,7 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
         tApellido.setEnabled(false);
         tLefono.setEnabled(false);
         tProvincia.setEnabled(false);
+        modelo = (DefaultTableModel) tabla.getModel();
     }
 
     /**
@@ -55,8 +58,10 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
         bCancelar = new javax.swing.JButton();
         bVehiculo = new javax.swing.JButton();
         bProp = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabla = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tDni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,64 +101,84 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
             }
         });
 
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Matricula", "Modelo", "Año", "Propietario"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tabla);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tNombre)
-                    .addComponent(tDni)
-                    .addComponent(tProvincia)
-                    .addComponent(tLefono, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                    .addComponent(tApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
-                .addGap(27, 27, 27))
+            .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(bProp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
-                .addGap(2, 2, 2))
+                .addComponent(bCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(274, 274, 274)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                    .addComponent(tDni)
+                    .addComponent(tLefono)
+                    .addComponent(tApellido)
+                    .addComponent(tProvincia)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tDni))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tNombre)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tApellido))
-                .addGap(21, 21, 21)
+                    .addComponent(tDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(tLefono))
+                    .addComponent(tNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tApellido)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(tProvincia))
-                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tLefono, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(3, 3, 3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tProvincia)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bCancelar)
                     .addComponent(bVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bProp))
-                .addGap(29, 29, 29))
+                .addContainerGap())
         );
 
         pack();
@@ -166,7 +191,6 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
         //Si no tiene longitud 9 ya ni sigo
         if (dni.length() == 9) {
             String primera = dni.substring(0, 1);
-            System.out.println(dni.substring(0, 1));
             //Si la primera letra es de dni extranjero
             if (primera.toUpperCase().indexOf(NIE) != -1) {
                 //Si los caracteres del 1 al 7 son numéricos sigo con la comprobación
@@ -221,7 +245,8 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
         PreparedStatement ps = null;
         try {
             if (!compruebaDNI(tDni.getText())) {
-                JOptionPane.showMessageDialog(this, "!DNI INCORRECTO¡");
+                JOptionPane.showMessageDialog(this, "!DNI INCORRECTO¡", "DNI incorrecto", JOptionPane.ERROR_MESSAGE);
+                tDni.setText("");
             } else {
                 tNombre.setEnabled(true);
                 tApellido.setEnabled(true);
@@ -236,9 +261,10 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
                     tLefono.setText(rs.getString(4));
                     tProvincia.setText(rs.getString(5));
                 } else {
-                    JOptionPane.showMessageDialog(this, "Este Propietario no existe en la base de datos");
+                    JOptionPane.showMessageDialog(this, "Este Propietario no existe en la base de datos", "Usuario inexistente", JOptionPane.ERROR_MESSAGE);
 
                 }
+                rellenaTabla();
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -260,17 +286,30 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
         tApellido.setText("");
         tLefono.setText("");
         tProvincia.setText("");
+        tNombre.setEnabled(false);
+        tApellido.setEnabled(false);
+        tLefono.setEnabled(false);
+        tProvincia.setEnabled(false);
+        LimpiarTabla();
     }//GEN-LAST:event_bCancelarActionPerformed
-
+    private void LimpiarTabla() {
+        for (int i = 0; i < tabla.getRowCount(); i++) {
+            modelo.removeRow(i);
+            i -= 1;
+        }
+    }
     private void bVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVehiculoActionPerformed
         PreparedStatement ps = null;
         try {
             if (!compruebaDNI(tDni.getText())) {
-                JOptionPane.showMessageDialog(this, "!DNI INCORRECTO¡");
+                JOptionPane.showMessageDialog(this, "!DNI INCORRECTO¡", "DNI incorrecto", JOptionPane.ERROR_MESSAGE);
+                tDni.setText("");
             } else {
                 ps = conn.prepararSentencia("DELETE FROM VEHICULO WHERE PROPIETARIO LIKE ?;");
                 ps.setString(1, tDni.getText());
                 int resultado = ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "¡VEHICULO ELIMINADO!", "Vehiculo", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -290,11 +329,14 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
         PreparedStatement ps = null;
         try {
             if (!compruebaDNI(tDni.getText())) {
-                JOptionPane.showMessageDialog(this, "!DNI INCORRECTO¡");
+                JOptionPane.showMessageDialog(this, "!DNI INCORRECTO¡", "DNI incorrecto", JOptionPane.ERROR_MESSAGE);
+                tDni.setText("");
             } else {
                 ps = conn.prepararSentencia("DELETE FROM PROPIETARIO WHERE DNI LIKE ?;");
                 ps.setString(1, tDni.getText());
                 int resultado = ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "¡PROPIETARIO ELIMINADO!", "Propietario", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -309,7 +351,22 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_bPropActionPerformed
+    private void rellenaTabla() {
+        try {
 
+            PreparedStatement ps = conn.prepararSentencia("SELECT V.MATRICULA, V.MODELO, V.ANIO, concat_ws(' ',P.NOMBRE,P.APELLIDO)"
+                    + "FROM VEHICULO V JOIN PROPIETARIO P ON(V.PROPIETARIO = P.DNI) WHERE V.PROPIETARIO LIKE ?");
+            ps.setString(1, tDni.getText());
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                modelo.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)});
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bCancelar;
@@ -320,10 +377,12 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField tApellido;
     private javax.swing.JTextField tDni;
     private javax.swing.JTextField tLefono;
     private javax.swing.JTextField tNombre;
     private javax.swing.JTextField tProvincia;
+    private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }

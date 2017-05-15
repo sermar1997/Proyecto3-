@@ -141,8 +141,13 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
     private void bAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAñadirActionPerformed
         PreparedStatement ps = null;
         try {
-
-            if (validaTodo()) {
+            if (!validaTodo()) {
+                tDni.setText("");
+                tNombre.setText("");
+                tApellido.setText("");
+                tLefono.setText("");
+                tProvincia.setText("");
+            } else {
                 ps = conn.prepararSentencia("INSERT INTO PROPIETARIO VALUES (?,?,?,?,?)");
                 ps.setString(1, tDni.getText());
                 ps.setString(2, tNombre.getText());
@@ -150,7 +155,8 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
                 ps.setString(4, tLefono.getText());
                 ps.setString(5, tProvincia.getText());
                 int resultado = ps.executeUpdate();
-                JOptionPane.showMessageDialog(this, "Propietario Añadido correctamente");
+                JOptionPane.showMessageDialog(this, "Propietario Añadido correctamente","Propietario",JOptionPane.INFORMATION_MESSAGE);
+                dispose();
             }
 
         } catch (SQLException e) {
@@ -171,35 +177,32 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
         if (compruebaDNI(tDni.getText())) {
             correcto = true;
         } else {
-            JOptionPane.showMessageDialog(this, "Tienes que poner un dni correcto");
+            JOptionPane.showMessageDialog(this, "Tienes que poner un dni correcto","DNI Incorrecto",JOptionPane.ERROR_MESSAGE);
             correcto = false;
         }
 
         if (validaNombre()) {
             correcto = true;
         } else {
-            JOptionPane.showMessageDialog(this, "Tienes que poner un nombre en el formato correcto");
             correcto = false;
         }
 
         if (validaApellido()) {
             correcto = true;
         } else {
-            JOptionPane.showMessageDialog(this, "Tienes que poner un apellido en el formato correcto");
             correcto = false;
         }
 
         if (validaTelefono()) {
             correcto = true;
         } else {
-            JOptionPane.showMessageDialog(this, "Tienes que poner un telefono en el formato correcto");
             correcto = false;
         }
 
         if (validaProvincia()) {
             correcto = true;
         } else {
-            JOptionPane.showMessageDialog(this, "Tienes que poner una provincia correcto");
+            
             correcto = false;
         }
         return correcto;
@@ -211,7 +214,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
         if (mat.matches()) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(this, "Contiene números o no esta escrito en formato correcto: Primera letra Mayúsucula y las demás minúsculas");
+            JOptionPane.showMessageDialog(this, "Contiene números o no esta escrito en formato correcto: Primera letra Mayúsucula y las demás minúsculas","Nombre Incorrecto",JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
@@ -222,7 +225,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
         if (mat.matches()) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(this, "Contiene números o no esta escrito en formato correcto: Primera letra Mayúsucula y las demás minúsculas");
+            JOptionPane.showMessageDialog(this, "Contiene números o no esta escrito en formato correcto: Primera letra Mayúsucula y las demás minúsculas","Apellido Incorrecto",JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
@@ -233,7 +236,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
         if (mat.matches()) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(this, "Teléfono incorrecto, solo se pueden 9 números");
+            JOptionPane.showMessageDialog(this, "Teléfono incorrecto, solo se pueden 9 números","Telefono Incorrecto",JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
@@ -244,7 +247,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
         if (mat.matches()) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(this, "Provincia de Aragón Incorrecta");
+            JOptionPane.showMessageDialog(this, "Provincia de Aragón Incorrecta","Provincia Incorrecta",JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
@@ -257,7 +260,6 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
         //Si no tiene longitud 9 ya ni sigo
         if (dni.length() == 9) {
             String primera = dni.substring(0, 1);
-            System.out.println(dni.substring(0, 1));
             //Si la primera letra es de dni extranjero
             if (primera.toUpperCase().indexOf(NIE) != -1) {
                 //Si los caracteres del 1 al 7 son numéricos sigo con la comprobación

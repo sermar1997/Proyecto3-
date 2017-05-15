@@ -41,6 +41,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         bListadoProp = new javax.swing.JButton();
         bFicheroXML = new javax.swing.JButton();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
         Panel.setBackground(new java.awt.Color(255, 255, 153));
 
         BañadeVehiculo.setText("Añadir Vehículos a la Base de Datos");

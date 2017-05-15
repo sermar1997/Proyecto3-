@@ -118,19 +118,23 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAñadirActionPerformed
-
         PreparedStatement ps = null;
         try {
-            if (!validarAño()) {
-                JOptionPane.showMessageDialog(this, "Tienes que poner un año correcto");
+            if (!validaTodo()) {
+                tMatricula.setText("");
+                tModelo.setText("");
+                tAnio.setText("");
+                tProp.setText("");
+            } else {
+                ps = conn.prepararSentencia("INSERT INTO VEHICULO VALUES (?,?,?,?)");
+                ps.setString(1, tMatricula.getText());
+                ps.setString(2, tModelo.getText());
+                ps.setInt(3, Integer.parseInt(tAnio.getText()));
+                ps.setString(4, tProp.getText());
+                int resultado = ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "¡VEHICULO AÑADIDO!","Vehiculo",JOptionPane.INFORMATION_MESSAGE);
+                dispose();
             }
-
-            ps = conn.prepararSentencia("INSERT INTO VEHICULO VALUES (?,?,?,?)");
-            ps.setString(1, tMatricula.getText());
-            ps.setString(2, tModelo.getText());
-            ps.setInt(3, Integer.parseInt(tAnio.getText()));
-            ps.setString(4, tProp.getText());
-            int resultado = ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -143,20 +147,32 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
                 }
             }
         }
-        JOptionPane.showMessageDialog(this, "¡VEHICULO AÑADIDO!");
+
     }//GEN-LAST:event_bAñadirActionPerformed
     public boolean validaTodo() {
         boolean correcto = false;
         if (validarMatricula()) {
             correcto = true;
         } else {
-            JOptionPane.showMessageDialog(this, "Tienes que poner una matrícula correcta");
+            JOptionPane.showMessageDialog(this, "Tienes que poner una matrícula correcta", "Matricula incorrecta", JOptionPane.ERROR_MESSAGE);
+            correcto = false;
+        }
+        if (!tModelo.getText().isEmpty()) {
+            correcto=true;
+        }else{
+            JOptionPane.showMessageDialog(this, "Tienes que poner un modelo correcto", "Modelo incorrecto", JOptionPane.ERROR_MESSAGE);
             correcto = false;
         }
         if (validarAño()) {
             correcto = true;
         } else {
-            JOptionPane.showMessageDialog(this, "Tienes que introducir un año correcto");
+            JOptionPane.showMessageDialog(this, "Tienes que introducir un año correcto", "Año incorrecto", JOptionPane.ERROR_MESSAGE);
+            correcto = false;
+        }
+        if (!tProp.getText().isEmpty()) {
+            correcto=true;
+        }else{
+            JOptionPane.showMessageDialog(this, "Tienes que poner un propietario correcto", "Propietario incorrecto", JOptionPane.ERROR_MESSAGE);
             correcto = false;
         }
 

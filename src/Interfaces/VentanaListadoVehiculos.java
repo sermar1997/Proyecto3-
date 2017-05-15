@@ -120,7 +120,7 @@ public class VentanaListadoVehiculos extends javax.swing.JFrame implements ListS
         try {
 
             ResultSet rs = conn.consultaSinParametros("SELECT V.MATRICULA, V.MODELO, V.ANIO, concat_ws(' ',P.NOMBRE,P.APELLIDO)"
-                    + "FROM VEHICULO V JOIN PROPIETARIO P ON(V.PROPIETARIO = P.DNI)");
+                    + "FROM VEHICULO V JOIN PROPIETARIO P ON(V.PROPIETARIO = P.DNI)ORDER BY V.ANIO DESC");
 
             while (rs.next()) {
                 modelo.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)});

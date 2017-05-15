@@ -92,12 +92,13 @@ public class VentanaAsignaPropietario extends javax.swing.JFrame {
         PreparedStatement ps = null;
         try {
             if (!compruebaDNI(tDni.getText())) {
-                JOptionPane.showMessageDialog(this, "DNI incorrecto.");
+                JOptionPane.showMessageDialog(this, "DNI incorrecto.","DNI incorrecto",JOptionPane.ERROR_MESSAGE);
             } else {
                 ps = conn.prepararSentencia("UPDATE VEHICULO SET PROPIETARIO=? WHERE MATRICULA=? ");
                 ps.setString(1, tDni.getText());
                 ps.setString(2, matricula);
                 int resultado = ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "¡PROPIETARIO ACTUALIZADO!","Propietario",JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             }
         } catch (SQLException e) {
@@ -112,7 +113,7 @@ public class VentanaAsignaPropietario extends javax.swing.JFrame {
                 }
             }
         }
-        JOptionPane.showMessageDialog(this, "¡PROPIETARIO ACTUALIZADO!");
+        
     }//GEN-LAST:event_bCambiaPropActionPerformed
     private boolean compruebaDNI(String dni) {
         String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
