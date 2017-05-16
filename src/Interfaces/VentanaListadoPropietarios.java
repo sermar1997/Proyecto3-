@@ -32,6 +32,7 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
         this.conn = conn;
         initComponents();
         modelo = (DefaultTableModel) tabla.getModel();
+        rellenaTabla();
     }
 
     /**
@@ -128,6 +129,7 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
                     ps.setString(1, tProvincia.getText());
                     ResultSet rs = ps.executeQuery();
                     while (rs.next()) {
+                        System.out.println(rs.next());
                         modelo.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)});
                     }
                 }
@@ -174,6 +176,21 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Número incorrecto", "Nº Vehiculos", JOptionPane.ERROR_MESSAGE);
             return false;
+        }
+    }
+
+    private void rellenaTabla() {
+        try {
+
+            PreparedStatement ps = conn.prepararSentencia("SELECT DNI, NOMBRE, APELLIDO, TELEFONO, PROVINCIA FROM PROPIETARIO");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                modelo.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),rs.getString(5)});
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
