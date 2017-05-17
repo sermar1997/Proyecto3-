@@ -231,12 +231,12 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
     }
 
     public boolean validaTelefono() {
-        Pattern pat = Pattern.compile(".*[0-9].*{9}");
+        Pattern pat = Pattern.compile("^(\\+?)([0-9]{2})?[9|6|7][0-9]{8}$");
         Matcher mat = pat.matcher(tLefono.getText());
         if (mat.matches()) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(this, "Teléfono incorrecto, solo se pueden 9 números","Telefono Incorrecto",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Teléfono incorrecto. Formato: (+34(opcional)666666666)","Telefono Incorrecto",JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }

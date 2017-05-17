@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Sergio
  */
 public class VentanaListadoPropietarios extends javax.swing.JFrame {
-
+    
     DefaultTableModel modelo;
     Conexion conn;
 
@@ -32,7 +32,7 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
         this.conn = conn;
         initComponents();
         modelo = (DefaultTableModel) tabla.getModel();
-        rellenaTabla();
+        
     }
 
     /**
@@ -57,6 +57,12 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
         jLabel1.setText("Nº VEHICULOS:");
 
         jLabel2.setText("PROVINCIA:");
+
+        tProvincia.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tProvinciaMouseClicked(evt);
+            }
+        });
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -120,14 +126,16 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
 
     private void bFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bFiltrarActionPerformed
         PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             if (tVehiculos.getText().isEmpty()) {
                 if (!validaProvincia()) {
                     tProvincia.setText("");
                 } else {
-                    conn.prepararSentencia("SELECT * FROM PROPIETARIO WHERE PROVINCIA LIKE ?");
+                    ps = conn.prepararSentencia("SELECT * FROM PROPIETARIO WHERE PROVINCIA LIKE ?");
                     ps.setString(1, tProvincia.getText());
-                    ResultSet rs = ps.executeQuery();
+                    System.out.println(ps.toString());
+                    rs = ps.executeQuery();
                     while (rs.next()) {
                         System.out.println(rs.next());
                         modelo.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)});
@@ -137,18 +145,18 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
                 if (!validaVehiculos()) {
                     tVehiculos.setText("");
                 } else {
-                    conn.prepararSentencia("SELECT P.DNI, P.NOMBRE, P.APELLIDO, P.TELEFONO, P.PROVINCIA FROM PROPIETARIO P JOIN VEHICULO V ON(V.PROPIETARIO=P.DNI) WHERE COUNT(V.PROPIETARIO) >= ?");
+                    ps = conn.prepararSentencia("SELECT P.DNI, P.NOMBRE, P.APELLIDO, P.TELEFONO, P.PROVINCIA FROM PROPIETARIO P JOIN VEHICULO V ON(V.PROPIETARIO=P.DNI) WHERE COUNT(V.PROPIETARIO) >= ?");
                     ps.setString(1, tVehiculos.getText());
-                    ResultSet rs = ps.executeQuery();
+                    rs = ps.executeQuery();
                     while (rs.next()) {
                         modelo.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)});
                     }
                 }
             } else {
-                conn.prepararSentencia("SELECT P.DNI, P.NOMBRE, P.APELLIDO, P.TELEFONO, P.PROVINCIA FROM PROPIETARIO P JOIN VEHICULO V ON(V.PROPIETARIO=P.DNI) WHERE COUNT(V.PROPIETARIO) >= ? AND PROVINCIA LIKE ?");
+                ps = conn.prepararSentencia("SELECT P.DNI, P.NOMBRE, P.APELLIDO, P.TELEFONO, P.PROVINCIA FROM PROPIETARIO P JOIN VEHICULO V ON(V.PROPIETARIO=P.DNI) WHERE COUNT(V.PROPIETARIO) >= ? AND PROVINCIA LIKE ?");
                 ps.setString(1, tVehiculos.getText());
                 ps.setString(2, tProvincia.getText());
-                ResultSet rs = ps.executeQuery();
+                rs = ps.executeQuery();
                 while (rs.next()) {
                     modelo.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)});
                 }
@@ -157,6 +165,10 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
             e.getMessage();
         }
     }//GEN-LAST:event_bFiltrarActionPerformed
+
+    private void tProvinciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tProvinciaMouseClicked
+        tProvincia.setText("");
+    }//GEN-LAST:event_tProvinciaMouseClicked
     public boolean validaProvincia() {
         Pattern pat = Pattern.compile("(Zaragoza|Huesca|Teruel)");
         Matcher mat = pat.matcher(tProvincia.getText());
@@ -167,7 +179,7 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
             return false;
         }
     }
-
+    
     public boolean validaVehiculos() {
         Pattern pat = Pattern.compile("[0-9]{1}|[0-9]{2}");
         Matcher mat = pat.matcher(tVehiculos.getText());
@@ -178,17 +190,17 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
             return false;
         }
     }
-
+    
     private void rellenaTabla() {
         try {
-
+            
             PreparedStatement ps = conn.prepararSentencia("SELECT DNI, NOMBRE, APELLIDO, TELEFONO, PROVINCIA FROM PROPIETARIO");
             ResultSet rs = ps.executeQuery();
-
+            
             while (rs.next()) {
-                modelo.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),rs.getString(5)});
+                modelo.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)});
             }
-
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
