@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Sergio
  */
 public class VentanaListadoPropietarios extends javax.swing.JFrame {
-    
+
     DefaultTableModel modelo;
     Conexion conn;
 
@@ -32,7 +32,7 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
         this.conn = conn;
         initComponents();
         modelo = (DefaultTableModel) tabla.getModel();
-        
+        rellenaTabla();
     }
 
     /**
@@ -128,16 +128,17 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
+
             if (tVehiculos.getText().isEmpty()) {
                 if (!validaProvincia()) {
                     tProvincia.setText("");
                 } else {
-                    ps = conn.prepararSentencia("SELECT * FROM PROPIETARIO WHERE PROVINCIA LIKE ?");
+                    LimpiarTabla();
+                    ps = conn.prepararSentencia("SELECT * FROM PROPIETARIO WHERE PROVINCIA = ?");
                     ps.setString(1, tProvincia.getText());
                     System.out.println(ps.toString());
                     rs = ps.executeQuery();
                     while (rs.next()) {
-                        System.out.println(rs.next());
                         modelo.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)});
                     }
                 }
@@ -145,15 +146,18 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
                 if (!validaVehiculos()) {
                     tVehiculos.setText("");
                 } else {
-                    ps = conn.prepararSentencia("SELECT P.DNI, P.NOMBRE, P.APELLIDO, P.TELEFONO, P.PROVINCIA FROM PROPIETARIO P JOIN VEHICULO V ON(V.PROPIETARIO=P.DNI) WHERE COUNT(V.PROPIETARIO) >= ?");
+                    LimpiarTabla();
+                    ps = conn.prepararSentencia("SELECT p.dni, p.nombre,p.apellido, p.telefono, p.provincia, count(v.matricula) from vehiculo v join propietario p ON(v.propietario = p.dni)  group by v.propietario HAVING count(v.matricula)=?;");
                     ps.setString(1, tVehiculos.getText());
+                    System.out.println(ps.toString());
                     rs = ps.executeQuery();
                     while (rs.next()) {
                         modelo.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)});
                     }
                 }
             } else {
-                ps = conn.prepararSentencia("SELECT P.DNI, P.NOMBRE, P.APELLIDO, P.TELEFONO, P.PROVINCIA FROM PROPIETARIO P JOIN VEHICULO V ON(V.PROPIETARIO=P.DNI) WHERE COUNT(V.PROPIETARIO) >= ? AND PROVINCIA LIKE ?");
+                LimpiarTabla();
+                ps = conn.prepararSentencia("SELECT p.dni, p.nombre,p.apellido, p.telefono, p.provincia, count(v.matricula) from vehiculo v join propietario p ON(v.propietario = p.dni)  group by v.propietario HAVING count(v.matricula) like ? and p.provincia like ?");
                 ps.setString(1, tVehiculos.getText());
                 ps.setString(2, tProvincia.getText());
                 rs = ps.executeQuery();
@@ -179,7 +183,7 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
             return false;
         }
     }
-    
+
     public boolean validaVehiculos() {
         Pattern pat = Pattern.compile("[0-9]{1}|[0-9]{2}");
         Matcher mat = pat.matcher(tVehiculos.getText());
@@ -190,19 +194,26 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
             return false;
         }
     }
-    
+
     private void rellenaTabla() {
         try {
-            
+
             PreparedStatement ps = conn.prepararSentencia("SELECT DNI, NOMBRE, APELLIDO, TELEFONO, PROVINCIA FROM PROPIETARIO");
             ResultSet rs = ps.executeQuery();
-            
+
             while (rs.next()) {
                 modelo.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)});
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void LimpiarTabla() {
+        for (int i = 0; i < tabla.getRowCount(); i++) {
+            modelo.removeRow(i);
+            i -= 1;
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
