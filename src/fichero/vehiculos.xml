@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Vehículos>
+    <Vehículo>
+        <Modelo/>
+        <Año/>
+        <Propietario>
+            <Nombre/>
+            <Apellido/>
+        </Propietario>
+    </Vehículo>
+</Vehículos>

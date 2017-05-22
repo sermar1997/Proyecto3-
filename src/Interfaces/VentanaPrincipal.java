@@ -6,6 +6,23 @@
 package Interfaces;
 
 import Conexión.Conexion;
+import java.io.File;
+import java.io.IOException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -17,6 +34,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     /**
      * Creates new form VentanaPrincipal
+     *
      * @param conn
      */
     public VentanaPrincipal(Conexion conn) {
@@ -81,6 +99,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         bFicheroXML.setText("Exportar los datos a un fichero XML");
+        bFicheroXML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bFicheroXMLActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout PanelLayout = new javax.swing.GroupLayout(Panel);
         Panel.setLayout(PanelLayout);
@@ -155,6 +178,39 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         VentanaListadoPropietarios v = new VentanaListadoPropietarios(conn);
         v.setVisible(true);
     }//GEN-LAST:event_bListadoPropActionPerformed
+
+    private void bFicheroXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bFicheroXMLActionPerformed
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.newDocument();
+
+            doc.setXmlVersion("1.0");
+            Element raiz = doc.createElement("Vehículos");
+            Element vehiculo = doc.createElement("Vehículo");
+            Element modelo = doc.createElement("Modelo");
+            Element anio = doc.createElement("Año");
+            Element propietario = doc.createElement("Propietario");
+            Element nombre = doc.createElement("Nombre");
+            Element apellido = doc.createElement("Apellido");
+            doc.appendChild(raiz).appendChild(vehiculo);
+            vehiculo.appendChild(modelo);
+            vehiculo.appendChild(anio);
+            vehiculo.appendChild(propietario);
+            propietario.appendChild(nombre);
+            propietario.appendChild(apellido);
+            Source source = new DOMSource(doc);
+            Result result = new StreamResult(new File("src/fichero/vehiculos.xml"));
+            Transformer trans = TransformerFactory.newInstance().newTransformer();
+            trans.transform(source, result);
+        } catch (NullPointerException e) {
+            e.getMessage();
+        } catch (ParserConfigurationException e) {
+            e.getMessage();
+        } catch (TransformerException e) {
+            e.getMessage();
+        }
+    }//GEN-LAST:event_bFicheroXMLActionPerformed
 
     /**
      * @param args the command line arguments

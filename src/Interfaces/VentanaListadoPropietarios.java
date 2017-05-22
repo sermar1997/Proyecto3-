@@ -136,7 +136,6 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
                     LimpiarTabla();
                     ps = conn.prepararSentencia("SELECT * FROM PROPIETARIO WHERE PROVINCIA = ?");
                     ps.setString(1, tProvincia.getText());
-                    System.out.println(ps.toString());
                     rs = ps.executeQuery();
                     while (rs.next()) {
                         modelo.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)});
@@ -149,7 +148,6 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
                     LimpiarTabla();
                     ps = conn.prepararSentencia("SELECT p.dni, p.nombre,p.apellido, p.telefono, p.provincia, count(v.matricula) from vehiculo v join propietario p ON(v.propietario = p.dni)  group by v.propietario HAVING count(v.matricula)=?;");
                     ps.setString(1, tVehiculos.getText());
-                    System.out.println(ps.toString());
                     rs = ps.executeQuery();
                     while (rs.next()) {
                         modelo.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)});

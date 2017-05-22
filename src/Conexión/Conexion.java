@@ -19,11 +19,18 @@ import java.sql.SQLException;
 public class Conexion {
 
     private Connection conexion;
-
+/**
+ * Obtiene la conexión a la base de datos
+ * @return Connection
+ */
     public Connection getConexion() {
         return conexion;
     }
-
+    /**
+     * Carga el driver para conectarse a la base de datos
+     * @return Driver
+     * Si lo carga devuelve true sino devuelve false
+     */
     public boolean cargarDriver() {
         try {
             DriverManager.registerDriver(new Driver());
@@ -33,7 +40,15 @@ public class Conexion {
         }
         return false;
     }
-
+/**
+ * Se conecta a la base de datos con una serie de parámetros que introducimos cuando llamamos al método
+ * @param host si trabajas en local es localhost
+ * @param puerto por el que accedes a la base de datos
+ * @param database nombre de la base de datos
+ * @param usuario nombre del usuario que accede a la base de datos
+ * @param password contraseña del usuario
+ * @return 
+ */
     public boolean Conectar(String host, String puerto, String database, String usuario, String password) {
         try {
             conexion = DriverManager.getConnection("jdbc:mysql://" + host + ":" + puerto + "/" + database, usuario, password);
@@ -43,7 +58,11 @@ public class Conexion {
         }
         return false;
     }
-
+/**
+ * Método para desconectarse de la base de datos
+ * @return conexion
+ * devuelve true si cierra la conexión y false si no la cierra.
+ */
     public boolean Desconectar() {
         try {
             conexion.close();
@@ -53,12 +72,23 @@ public class Conexion {
         }
         return false;
     }
-
+/**
+ * Método para realizar una sentencia de modificación sql
+ * @param sentencia sql que ejecutaremos
+ * @return
+ * @throws SQLException 
+ */
     public PreparedStatement prepararSentencia(String sentencia) throws SQLException {
         PreparedStatement ps = null;
             ps = conexion.prepareStatement(sentencia);
         return ps;
     }
+    /**
+     * Método para realizar una sentendia de consulta sql
+     * @param consulta
+     * @return
+     * @throws SQLException 
+     */
     public ResultSet consultaSinParametros(String consulta) throws SQLException{
         ResultSet rs = null;
         rs = prepararSentencia(consulta).executeQuery();

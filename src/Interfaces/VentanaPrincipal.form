@@ -125,6 +125,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Exportar los datos a un fichero XML"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bFicheroXMLActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

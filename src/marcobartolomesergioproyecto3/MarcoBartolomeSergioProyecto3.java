@@ -16,6 +16,7 @@ public class MarcoBartolomeSergioProyecto3 {
 
     /**
      * @param args the command line arguments
+     * Abre la conexión con la base de datos y llama a la ventana principal
      */
     public static void main(String[] args) {
         Conexion conn = new Conexion();

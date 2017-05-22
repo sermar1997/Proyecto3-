@@ -177,33 +177,32 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
         if (compruebaDNI(tDni.getText())) {
             correcto = true;
         } else {
-            JOptionPane.showMessageDialog(this, "Tienes que poner un dni correcto","DNI Incorrecto",JOptionPane.ERROR_MESSAGE);
-            correcto = false;
+            return false;
         }
 
         if (validaNombre()) {
             correcto = true;
         } else {
-            correcto = false;
+            return false;
         }
 
         if (validaApellido()) {
             correcto = true;
         } else {
-            correcto = false;
+            return false;
         }
 
         if (validaTelefono()) {
             correcto = true;
         } else {
-            correcto = false;
+            return false;
         }
 
         if (validaProvincia()) {
             correcto = true;
         } else {
             
-            correcto = false;
+            return false;
         }
         return correcto;
     }
@@ -306,6 +305,8 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
             //Si ha llegado hasta aquí es porque es correcto
             return true;
         }
+        
+        JOptionPane.showMessageDialog(this, "Tienes que poner un dni correcto","DNI Incorrecto",JOptionPane.ERROR_MESSAGE);
         return false;
     }
 

@@ -15,15 +15,14 @@ import javax.swing.JOptionPane;
  * @author Sergio
  */
 public class VentanaAsignaPropietario extends javax.swing.JFrame {
-
     String matricula;
     Conexion conn;
 
     /**
      * Creates new form VentanaAsignaPropietario
      *
-     * @param conn
-     * @param matricula
+     * @param conn es la conexión con la base de datos que se le pasa por parámetro
+     * @param matricula del coche que le pasamos por parametro y a la cual vamos a cambiar de propietario
      */
     public VentanaAsignaPropietario(Conexion conn, String matricula) {
         this.conn = conn;
@@ -87,7 +86,10 @@ public class VentanaAsignaPropietario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+ * Método que comprueba que el dni es correcto, si es correcto realiza una modificación del propietario cuya matricula sea la que le hemos pasado por parametro
+ * @param evt 
+ */
     private void bCambiaPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCambiaPropActionPerformed
         PreparedStatement ps = null;
         try {
@@ -115,6 +117,11 @@ public class VentanaAsignaPropietario extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_bCambiaPropActionPerformed
+    /**
+     * Método que comprueba si el dni es correcto
+     * @param dni
+     * @return True si el dni es correcto y false si el dni es incorrecto 
+     */
     private boolean compruebaDNI(String dni) {
         String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
         String numeros = "0123456789";
