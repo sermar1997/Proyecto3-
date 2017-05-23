@@ -83,9 +83,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tProvincia">
-      <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tProvinciaMouseClicked"/>
-      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>

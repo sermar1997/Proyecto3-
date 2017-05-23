@@ -15,8 +15,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author Sergio
+ * Clase que filtra propietarios por número de coches o por provincia
+ * @author Sergio Marco
+ * @version 23/05/2017
  */
 public class VentanaListadoPropietarios extends javax.swing.JFrame {
 
@@ -25,13 +26,15 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
 
     /**
      * Creates new form VentanaListadoPropietarios
-     *
-     * @param conn
+     * Constructor de la clase
+     * @param conn parámetro que devuelve la conexión
      */
     public VentanaListadoPropietarios(Conexion conn) {
         this.conn = conn;
         initComponents();
+        //Obtenemos el modelo de la tabla
         modelo = (DefaultTableModel) tabla.getModel();
+        //Rellenamos la tabla
         rellenaTabla();
     }
 
@@ -57,12 +60,6 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
         jLabel1.setText("Nº VEHICULOS:");
 
         jLabel2.setText("PROVINCIA:");
-
-        tProvincia.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tProvinciaMouseClicked(evt);
-            }
-        });
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -123,42 +120,63 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+ * Al pulsar el botón se filtrarán los propietarios
+ * @param evt parámetro que llama al evento que filtrará por propietarios
+ */
     private void bFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bFiltrarActionPerformed
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-
+            //Si el campo de nº de vehículos está vacío
             if (tVehiculos.getText().isEmpty()) {
+                //Si no valida la provincia la volveremos a escribir desde 0
                 if (!validaProvincia()) {
                     tProvincia.setText("");
                 } else {
+                    //Si valida borramos los datos que había antes
                     LimpiarTabla();
+                    //Lanzamos la consulta
                     ps = conn.prepararSentencia("SELECT * FROM PROPIETARIO WHERE PROVINCIA = ?");
+                    //Le damos valor al comodín de la consulta
                     ps.setString(1, tProvincia.getText());
+                    //Ejecutamos la consulta
                     rs = ps.executeQuery();
+                    //Mientras haya datos se añadirán filas a la tabla
                     while (rs.next()) {
                         modelo.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)});
                     }
                 }
+                //Si el campo de provincia está vacío
             } else if (tProvincia.getText().isEmpty()) {
+                //Si no valida los vehículos deberemos volver a escribirlos desde 0
                 if (!validaVehiculos()) {
                     tVehiculos.setText("");
                 } else {
+                    //Si valida borramos los datos que había antes
                     LimpiarTabla();
+                    //Preparamos la consulta
                     ps = conn.prepararSentencia("SELECT p.dni, p.nombre,p.apellido, p.telefono, p.provincia, count(v.matricula) from vehiculo v join propietario p ON(v.propietario = p.dni)  group by v.propietario HAVING count(v.matricula)=?;");
+                    //Damos valor al comodín de la consulta
                     ps.setString(1, tVehiculos.getText());
+                    //Ejecutamos la consulta
                     rs = ps.executeQuery();
+                    //Mientras haya datos, añadiremos filas a la tabla
                     while (rs.next()) {
                         modelo.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)});
                     }
                 }
             } else {
+                //Si en los dos campos hay datos borraremos todo lo que había antes en la tabla
                 LimpiarTabla();
+                //Lanzaremos la consulta
                 ps = conn.prepararSentencia("SELECT p.dni, p.nombre,p.apellido, p.telefono, p.provincia, count(v.matricula) from vehiculo v join propietario p ON(v.propietario = p.dni)  group by v.propietario HAVING count(v.matricula) like ? and p.provincia like ?");
+                //Damos los valores a los comodines de la consulta
                 ps.setString(1, tVehiculos.getText());
                 ps.setString(2, tProvincia.getText());
+                //Ejecutamos la consulta
                 rs = ps.executeQuery();
+                //Mientras haya datos seguiremos añadiendo filas a la tabla
                 while (rs.next()) {
                     modelo.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)});
                 }
@@ -167,10 +185,10 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
             e.getMessage();
         }
     }//GEN-LAST:event_bFiltrarActionPerformed
-
-    private void tProvinciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tProvinciaMouseClicked
-        tProvincia.setText("");
-    }//GEN-LAST:event_tProvinciaMouseClicked
+    /**
+     * Método que validará la provincia con ese patrón
+     * @return 
+     */
     public boolean validaProvincia() {
         Pattern pat = Pattern.compile("(Zaragoza|Huesca|Teruel)");
         Matcher mat = pat.matcher(tProvincia.getText());
@@ -181,7 +199,10 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
             return false;
         }
     }
-
+/**
+ * Método que validará el nº vehículos con ese patrón
+ * @return 
+ */
     public boolean validaVehiculos() {
         Pattern pat = Pattern.compile("[0-9]{1}|[0-9]{2}");
         Matcher mat = pat.matcher(tVehiculos.getText());
@@ -192,13 +213,16 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
             return false;
         }
     }
-
+/**
+ * Método que rellena los datos de una tabla
+ */
     private void rellenaTabla() {
         try {
-
+            //Lanzamos la consulta
             PreparedStatement ps = conn.prepararSentencia("SELECT DNI, NOMBRE, APELLIDO, TELEFONO, PROVINCIA FROM PROPIETARIO");
+            //Ejecutamos la consulta
             ResultSet rs = ps.executeQuery();
-
+            //Mientras que haya datos se añadirán filas a la tabla
             while (rs.next()) {
                 modelo.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)});
             }
@@ -207,7 +231,9 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-
+/**
+ * Método que borra los datos de la tabla
+ */
     private void LimpiarTabla() {
         for (int i = 0; i < tabla.getRowCount(); i++) {
             modelo.removeRow(i);
