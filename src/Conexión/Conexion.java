@@ -53,7 +53,7 @@ public class Conexion {
      * @param database nombre de la base de datos
      * @param usuario nombre del usuario que accede a la base de datos
      * @param password contraseña del usuario
-     * @return
+     * @return la conexión a la base 
      */
     public boolean Conectar(String host, String puerto, String database, String usuario, String password) {
         try {
@@ -85,7 +85,7 @@ public class Conexion {
      * Método para realizar una sentencia de modificación sql
      *
      * @param sentencia sql que ejecutaremos
-     * @return
+     * @return la consulta realizada
      * @throws SQLException
      */
     public PreparedStatement prepararSentencia(String sentencia) throws SQLException {
@@ -97,9 +97,9 @@ public class Conexion {
     /**
      * Método para realizar una sentendia de consulta sql
      *
-     * @param consulta
-     * @return
-     * @throws SQLException
+     * @param consulta parámetro en el cual introduciremos la consulta sql
+     * @return consulta sin parámetros
+     * @throws SQLException 
      */
     public ResultSet consultaSinParametros(String consulta) throws SQLException {
         ResultSet rs = null;

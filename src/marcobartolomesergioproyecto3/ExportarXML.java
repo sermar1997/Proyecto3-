@@ -41,7 +41,7 @@ public class ExportarXML {
     }
 /**
  * Método en el cual conseguimos exportar los datos de la bbdd al fichero XML
- * @return 
+ * @return devuelve la exportación
  */
     public boolean exportar() {
         

@@ -187,7 +187,7 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
     }//GEN-LAST:event_bFiltrarActionPerformed
     /**
      * Método que validará la provincia con ese patrón
-     * @return 
+     * @return provincia validada
      */
     public boolean validaProvincia() {
         Pattern pat = Pattern.compile("(Zaragoza|Huesca|Teruel)");
@@ -201,7 +201,7 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
     }
 /**
  * Método que validará el nº vehículos con ese patrón
- * @return 
+ * @return vehículo validado
  */
     public boolean validaVehiculos() {
         Pattern pat = Pattern.compile("[0-9]{1}|[0-9]{2}");

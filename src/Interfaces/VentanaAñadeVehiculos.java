@@ -169,7 +169,7 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
     /**
      * Método que valida que todos los métodos hayan devuelto true
      *
-     * @return
+     * @return todos los métodos validados
      */
     public boolean validaTodo() {
         boolean correcto = false;
@@ -205,7 +205,7 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
     /**
      * Valida que la matrícula siga el patrón establecido
      *
-     * @return
+     * @return matrícula validada
      */
     public boolean validarMatricula() {
         Pattern pat = Pattern.compile("^[0-9]{4}-[A-Z]{3}$");
@@ -220,7 +220,7 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
     /**
      * Valida que el año siga el patrón establecido
      *
-     * @return
+     * @return año validado
      */
     public boolean validarAño() {
         Pattern pat = Pattern.compile("[0-9]{4}$");

@@ -224,7 +224,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
     }
 /**
  * Método que valida que el nombre que introducimos siga el siguiente patrón
- * @return 
+ * @return nombre validado
  */
     public boolean validaNombre() {
         Pattern pat = Pattern.compile("^[A-Z].*[a-z].*");
@@ -238,7 +238,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
     }
 /**
  * Método que valida que el apellido que introducimos siga el siguiente patrón
- * @return 
+ * @return apellido validado
  */
     public boolean validaApellido() {
         Pattern pat = Pattern.compile("^[A-Z].*[a-z].*");
@@ -252,7 +252,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
     }
 /**
  * Método que valida que el teléfono que introducimos siga el siguiente patrón
- * @return 
+ * @return telefono validado
  */
     public boolean validaTelefono() {
         Pattern pat = Pattern.compile("^(\\+?)([0-9]{2})?[9|6|7][0-9]{8}$");
@@ -266,7 +266,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
     }
 /**
  * Método que valida que la provincia que introducimos siga el siguiente patrón
- * @return 
+ * @return provincia validada
  */
     public boolean validaProvincia() {
         Pattern pat = Pattern.compile("(Zaragoza|Huesca|Teruel)");
@@ -281,7 +281,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
 /**
  * Método que valida que el dni que introducimos sea correcto y no inventado
  * @param dni parámetro que pasa el dni introducido.
- * @return 
+ * @return dni validado
  */
     private boolean compruebaDNI(String dni) {
         String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
