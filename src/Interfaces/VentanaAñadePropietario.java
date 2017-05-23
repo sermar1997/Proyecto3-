@@ -155,12 +155,15 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
                 ps.setString(4, tLefono.getText());
                 ps.setString(5, tProvincia.getText());
                 int resultado = ps.executeUpdate();
-                JOptionPane.showMessageDialog(this, "Propietario Añadido correctamente","Propietario",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Propietario Añadido correctamente", "Propietario", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            if (e.getErrorCode() == 1062) {
+                JOptionPane.showMessageDialog(this, "Clave Primaria Repetida");
+            }
+            e.getMessage();
         } finally {
             // Cerrar statement
             if (ps != null) {
@@ -201,7 +204,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
         if (validaProvincia()) {
             correcto = true;
         } else {
-            
+
             return false;
         }
         return correcto;
@@ -213,7 +216,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
         if (mat.matches()) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(this, "Contiene números o no esta escrito en formato correcto: Primera letra Mayúsucula y las demás minúsculas","Nombre Incorrecto",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Contiene números o no esta escrito en formato correcto: Primera letra Mayúsucula y las demás minúsculas", "Nombre Incorrecto", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
@@ -224,7 +227,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
         if (mat.matches()) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(this, "Contiene números o no esta escrito en formato correcto: Primera letra Mayúsucula y las demás minúsculas","Apellido Incorrecto",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Contiene números o no esta escrito en formato correcto: Primera letra Mayúsucula y las demás minúsculas", "Apellido Incorrecto", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
@@ -235,7 +238,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
         if (mat.matches()) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(this, "Teléfono incorrecto. Formato: (+34(opcional)666666666)","Telefono Incorrecto",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Teléfono incorrecto. Formato: (+34(opcional)666666666)", "Telefono Incorrecto", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
@@ -246,7 +249,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
         if (mat.matches()) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(this, "Provincia de Aragón Incorrecta","Provincia Incorrecta",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Provincia de Aragón Incorrecta", "Provincia Incorrecta", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
@@ -305,8 +308,8 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
             //Si ha llegado hasta aquí es porque es correcto
             return true;
         }
-        
-        JOptionPane.showMessageDialog(this, "Tienes que poner un dni correcto","DNI Incorrecto",JOptionPane.ERROR_MESSAGE);
+
+        JOptionPane.showMessageDialog(this, "Tienes que poner un dni correcto", "DNI Incorrecto", JOptionPane.ERROR_MESSAGE);
         return false;
     }
 

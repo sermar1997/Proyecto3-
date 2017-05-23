@@ -143,6 +143,9 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
                 try {
                     ps.close();
                 } catch (SQLException ex) {
+                    if (ex.getErrorCode() == 1062) {
+                        JOptionPane.showMessageDialog(this, "Clave primaria repetida");
+                    }
                     ex.getMessage();
                 }
             }

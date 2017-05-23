@@ -1,11 +1,75 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Vehículos>
-    <Vehículo>
-        <Modelo/>
-        <Año/>
+    <Vehículo Matricula="0112-HRX">
+        <Modelo>Alfa Romeo 4C</Modelo>
+        <Año>2013</Año>
         <Propietario>
-            <Nombre/>
-            <Apellido/>
+            <Nombre>Irene</Nombre>
+            <Apellido>López</Apellido>
+        </Propietario>
+    </Vehículo>
+    <Vehículo Matricula="1111-AAA">
+        <Modelo>MOJON</Modelo>
+        <Año>2017</Año>
+        <Propietario>
+            <Nombre>Sergio</Nombre>
+            <Apellido>Marco</Apellido>
+        </Propietario>
+    </Vehículo>
+    <Vehículo Matricula="1111-JJJ">
+        <Modelo>RABOGORDO</Modelo>
+        <Año>2017</Año>
+        <Propietario>
+            <Nombre>Sergio</Nombre>
+            <Apellido>Marco</Apellido>
+        </Propietario>
+    </Vehículo>
+    <Vehículo Matricula="2145-HNT">
+        <Modelo>Skoda Octavia</Modelo>
+        <Año>2013</Año>
+        <Propietario>
+            <Nombre>Marta</Nombre>
+            <Apellido>Pérez</Apellido>
+        </Propietario>
+    </Vehículo>
+    <Vehículo Matricula="2250-HKL">
+        <Modelo>BMW Serie 3</Modelo>
+        <Año>2012</Año>
+        <Propietario>
+            <Nombre>Irene</Nombre>
+            <Apellido>López</Apellido>
+        </Propietario>
+    </Vehículo>
+    <Vehículo Matricula="2356-GWW">
+        <Modelo>Dacia Sandero</Modelo>
+        <Año>2010</Año>
+        <Propietario>
+            <Nombre>Jorge</Nombre>
+            <Apellido>Gutierrez</Apellido>
+        </Propietario>
+    </Vehículo>
+    <Vehículo Matricula="2589-JFX">
+        <Modelo>Peugeot 208</Modelo>
+        <Año>2015</Año>
+        <Propietario>
+            <Nombre>Marta</Nombre>
+            <Apellido>Pérez</Apellido>
+        </Propietario>
+    </Vehículo>
+    <Vehículo Matricula="5285-HVR">
+        <Modelo>Suzuki Vitara</Modelo>
+        <Año>2014</Año>
+        <Propietario>
+            <Nombre>Pedro</Nombre>
+            <Apellido>Jimenez</Apellido>
+        </Propietario>
+    </Vehículo>
+    <Vehículo Matricula="5896-FNM">
+        <Modelo>Peugeot 207</Modelo>
+        <Año>2007</Año>
+        <Propietario>
+            <Nombre>Irene</Nombre>
+            <Apellido>López</Apellido>
         </Propietario>
     </Vehículo>
 </Vehículos>

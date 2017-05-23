@@ -6,23 +6,8 @@
 package Interfaces;
 
 import Conexión.Conexion;
-import java.io.File;
-import java.io.IOException;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import org.w3c.dom.DOMImplementation;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
+import javax.swing.JOptionPane;
+import marcobartolomesergioproyecto3.ExportarXML;
 
 /**
  *
@@ -153,63 +138,61 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+ * Al ejecutar este botón se abrirá la ventana que añade los vehículos
+ * @param evt parámetro que llama al evento que llama a la ventana que añade los vehículos
+ */
     private void BañadeVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BañadeVehiculoActionPerformed
         VentanaAñadeVehiculos v = new VentanaAñadeVehiculos(conn);
         v.setVisible(true);
     }//GEN-LAST:event_BañadeVehiculoActionPerformed
-
+/**
+ * Al ejecutar este botón se abrirá la ventana que añade a los propietarios
+ * @param evt parámetro que llama al evento que llama a la ventana que añade a los propietarios
+ */
     private void BañadePropietarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BañadePropietarioActionPerformed
         VentanaAñadePropietario v = new VentanaAñadePropietario(conn);
         v.setVisible(true);
     }//GEN-LAST:event_BañadePropietarioActionPerformed
-
+/**
+ * Al ejecutar este botón se abrirá la ventana que lista los Vehículos
+ * @param evt parámetro que llama al evento que llama a la ventana que lista los Vehículos
+ */
     private void bListadoVehiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bListadoVehiculosActionPerformed
         VentanaListadoVehiculos v = new VentanaListadoVehiculos(conn);
         v.setVisible(true);
     }//GEN-LAST:event_bListadoVehiculosActionPerformed
-
+/**
+ * Al ejecutar este botón se abrirá la ventana que da de baja a los propietarios
+ * @param evt parámetro que llama al evento que llama a la ventana que da de baja a los propietarios
+ */
     private void bBajaPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBajaPropActionPerformed
         VentanaBajaPropietario v = new VentanaBajaPropietario(conn);
         v.setVisible(true);
     }//GEN-LAST:event_bBajaPropActionPerformed
-
+/**
+ * Al ejecutar este botón se abrirá la ventana que lista los propietarios
+ * @param evt parámetro que llama al evento que llama a la ventana que lista los propietarios
+ */
     private void bListadoPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bListadoPropActionPerformed
         VentanaListadoPropietarios v = new VentanaListadoPropietarios(conn);
         v.setVisible(true);
     }//GEN-LAST:event_bListadoPropActionPerformed
-
+/**
+ * Al ejecutar este botón se exportará a un documento XML
+ * @param evt parámetro que llama al evento que exporta el código a documento XML
+ */
     private void bFicheroXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bFicheroXMLActionPerformed
-        try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.newDocument();
-
-            doc.setXmlVersion("1.0");
-            Element raiz = doc.createElement("Vehículos");
-            Element vehiculo = doc.createElement("Vehículo");
-            Element modelo = doc.createElement("Modelo");
-            Element anio = doc.createElement("Año");
-            Element propietario = doc.createElement("Propietario");
-            Element nombre = doc.createElement("Nombre");
-            Element apellido = doc.createElement("Apellido");
-            doc.appendChild(raiz).appendChild(vehiculo);
-            vehiculo.appendChild(modelo);
-            vehiculo.appendChild(anio);
-            vehiculo.appendChild(propietario);
-            propietario.appendChild(nombre);
-            propietario.appendChild(apellido);
-            Source source = new DOMSource(doc);
-            Result result = new StreamResult(new File("src/fichero/vehiculos.xml"));
-            Transformer trans = TransformerFactory.newInstance().newTransformer();
-            trans.transform(source, result);
-        } catch (NullPointerException e) {
-            e.getMessage();
-        } catch (ParserConfigurationException e) {
-            e.getMessage();
-        } catch (TransformerException e) {
-            e.getMessage();
+        //Instancio la clase
+        ExportarXML e = new ExportarXML(conn);
+        //Si el método da true se exportará si no saldrá un mensaje de error
+        //y no se ecportará
+        if (e.exportar()) {
+            JOptionPane.showMessageDialog(this, "Has exportado a XML con éxito","Exportar", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(this, "No se ha podido exportar a XML","Exportar", JOptionPane.ERROR_MESSAGE);
         }
+        
     }//GEN-LAST:event_bFicheroXMLActionPerformed
 
     /**
