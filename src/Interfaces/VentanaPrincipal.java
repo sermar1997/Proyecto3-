@@ -10,8 +10,9 @@ import javax.swing.JOptionPane;
 import marcobartolomesergioproyecto3.ExportarXML;
 
 /**
- *
- * @author Sergio
+ *Clase que llama a las demás ventanas o clases.
+ * @author Sergio Marco
+ * @version 23/05/2017
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
@@ -20,7 +21,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form VentanaPrincipal
      *
-     * @param conn
+     * @param conn parámetro que pasa la conexión
      */
     public VentanaPrincipal(Conexion conn) {
         this.conn = conn;
@@ -45,6 +46,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         bFicheroXML = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("VENTANA PRINCIPAL");
 
         Panel.setBackground(new java.awt.Color(255, 255, 153));
 
@@ -110,15 +112,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(PanelLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(BañadeVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(BañadePropietario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(bListadoVehiculos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
+                .addGap(18, 18, 18)
                 .addComponent(bBajaProp, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(bListadoProp, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(bFicheroXML, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5))
         );
@@ -131,68 +133,79 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 /**
- * Al ejecutar este botón se abrirá la ventana que añade los vehículos
- * @param evt parámetro que llama al evento que llama a la ventana que añade los vehículos
- */
+     * Al ejecutar este botón se abrirá la ventana que añade los vehículos
+     *
+     * @param evt parámetro que llama al evento que llama a la ventana que añade
+     * los vehículos
+     */
     private void BañadeVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BañadeVehiculoActionPerformed
         VentanaAñadeVehiculos v = new VentanaAñadeVehiculos(conn);
         v.setVisible(true);
     }//GEN-LAST:event_BañadeVehiculoActionPerformed
-/**
- * Al ejecutar este botón se abrirá la ventana que añade a los propietarios
- * @param evt parámetro que llama al evento que llama a la ventana que añade a los propietarios
- */
+    /**
+     * Al ejecutar este botón se abrirá la ventana que añade a los propietarios
+     *
+     * @param evt parámetro que llama al evento que llama a la ventana que añade
+     * a los propietarios
+     */
     private void BañadePropietarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BañadePropietarioActionPerformed
         VentanaAñadePropietario v = new VentanaAñadePropietario(conn);
         v.setVisible(true);
     }//GEN-LAST:event_BañadePropietarioActionPerformed
-/**
- * Al ejecutar este botón se abrirá la ventana que lista los Vehículos
- * @param evt parámetro que llama al evento que llama a la ventana que lista los Vehículos
- */
+    /**
+     * Al ejecutar este botón se abrirá la ventana que lista los Vehículos
+     *
+     * @param evt parámetro que llama al evento que llama a la ventana que lista
+     * los Vehículos
+     */
     private void bListadoVehiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bListadoVehiculosActionPerformed
         VentanaListadoVehiculos v = new VentanaListadoVehiculos(conn);
         v.setVisible(true);
     }//GEN-LAST:event_bListadoVehiculosActionPerformed
-/**
- * Al ejecutar este botón se abrirá la ventana que da de baja a los propietarios
- * @param evt parámetro que llama al evento que llama a la ventana que da de baja a los propietarios
- */
+    /**
+     * Al ejecutar este botón se abrirá la ventana que da de baja a los
+     * propietarios
+     *
+     * @param evt parámetro que llama al evento que llama a la ventana que da de
+     * baja a los propietarios
+     */
     private void bBajaPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBajaPropActionPerformed
         VentanaBajaPropietario v = new VentanaBajaPropietario(conn);
         v.setVisible(true);
     }//GEN-LAST:event_bBajaPropActionPerformed
-/**
- * Al ejecutar este botón se abrirá la ventana que lista los propietarios
- * @param evt parámetro que llama al evento que llama a la ventana que lista los propietarios
- */
+    /**
+     * Al ejecutar este botón se abrirá la ventana que lista los propietarios
+     *
+     * @param evt parámetro que llama al evento que llama a la ventana que lista
+     * los propietarios
+     */
     private void bListadoPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bListadoPropActionPerformed
         VentanaListadoPropietarios v = new VentanaListadoPropietarios(conn);
         v.setVisible(true);
     }//GEN-LAST:event_bListadoPropActionPerformed
-/**
- * Al ejecutar este botón se exportará a un documento XML
- * @param evt parámetro que llama al evento que exporta el código a documento XML
- */
+    /**
+     * Al ejecutar este botón se exportará a un documento XML
+     *
+     * @param evt parámetro que llama al evento que exporta el código a
+     * documento XML
+     */
     private void bFicheroXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bFicheroXMLActionPerformed
         //Instancio la clase
         ExportarXML e = new ExportarXML(conn);
         //Si el método da true se exportará si no saldrá un mensaje de error
         //y no se ecportará
         if (e.exportar()) {
-            JOptionPane.showMessageDialog(this, "Has exportado a XML con éxito","Exportar", JOptionPane.INFORMATION_MESSAGE);
-        }else{
-            JOptionPane.showMessageDialog(this, "No se ha podido exportar a XML","Exportar", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Has exportado a XML con éxito", "Exportar", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "No se ha podido exportar a XML", "Exportar", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }//GEN-LAST:event_bFicheroXMLActionPerformed
 
     /**

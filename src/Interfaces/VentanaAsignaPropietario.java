@@ -11,8 +11,9 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Sergio
+ * Clase que asigna el propietario de un vehículo
+ * @author Sergio Marco
+ * @version 23/05/2017
  */
 public class VentanaAsignaPropietario extends javax.swing.JFrame {
     String matricula;
@@ -87,21 +88,33 @@ public class VentanaAsignaPropietario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 /**
- * Método que comprueba que el dni es correcto, si es correcto realiza una modificación del propietario cuya matricula sea la que le hemos pasado por parametro
+ * Método que comprueba que el dni es correcto, 
+ * si es correcto realiza una modificación del propietario
+ * cuya matricula sea la que le hemos pasado por parametro
  * @param evt 
  */
     private void bCambiaPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCambiaPropActionPerformed
         PreparedStatement ps = null;
         try {
+            //Si el dni es incorrecto saltará el error y deberemos volver a escribirlo
             if (!compruebaDNI(tDni.getText())) {
                 JOptionPane.showMessageDialog(this, "DNI incorrecto.","DNI incorrecto",JOptionPane.ERROR_MESSAGE);
+                tDni.setText("");
             } else {
+                //Si el dni es correcto lanzamos la consulta
                 ps = conn.prepararSentencia("UPDATE VEHICULO SET PROPIETARIO=? WHERE MATRICULA=? ");
+                //Le damos valores a los comodines de la consulta
                 ps.setString(1, tDni.getText());
                 ps.setString(2, matricula);
+                //Ejecutamos la consulta
                 int resultado = ps.executeUpdate();
                 JOptionPane.showMessageDialog(this, "¡PROPIETARIO ACTUALIZADO!","Propietario",JOptionPane.INFORMATION_MESSAGE);
+                
+                VentanaListadoVehiculos v = new VentanaListadoVehiculos(conn);
+                v.RefrescarTabla();
+                //Cerramos la ventana
                 dispose();
+                
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

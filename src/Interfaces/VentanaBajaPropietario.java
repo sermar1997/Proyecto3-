@@ -13,8 +13,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
+ * Clase que da de baja a un propietario
  *
- * @author Sergio
+ * @author Sergio Marco
+ * @version 23/05/2017
  */
 public class VentanaBajaPropietario extends javax.swing.JFrame {
 
@@ -24,15 +26,17 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
     /**
      * Creates new form VentanaBajaPropietario
      *
-     * @param conn
+     * @param conn parámetro que pasa la conexión
      */
     public VentanaBajaPropietario(Conexion conn) {
         this.conn = conn;
         initComponents();
+        //Por defecto los botones estarán desactivados
         tNombre.setEnabled(false);
         tApellido.setEnabled(false);
         tLefono.setEnabled(false);
         tProvincia.setEnabled(false);
+        //Cojo el modelo de la tabla
         modelo = (DefaultTableModel) tabla.getModel();
     }
 
@@ -162,12 +166,10 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
                     .addComponent(tApellido)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tLefono, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(3, 3, 3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tLefono, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tProvincia)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -183,6 +185,12 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    /**
+     * Comprueba que el dni sea correcto y no uno inventado
+     *
+     * @param dni parámetro que le pasa el dni introducido para validar.
+     * @return
+     */
     private boolean compruebaDNI(String dni) {
         String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
         String numeros = "0123456789";
@@ -240,30 +248,44 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
         return false;
     }
 
+    /**
+     * Al introducir el dni correcto, mostrará toda la información del
+     * propietario
+     *
+     * @param evt
+     */
     private void tDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tDniActionPerformed
         ResultSet rs = null;
         PreparedStatement ps = null;
         try {
+            //Si el dni no es correcto mostrará un mensaje de error y deberá introducirlo otra vez
             if (!compruebaDNI(tDni.getText())) {
                 JOptionPane.showMessageDialog(this, "!DNI INCORRECTO¡", "DNI incorrecto", JOptionPane.ERROR_MESSAGE);
                 tDni.setText("");
             } else {
+                //Si es correcto se habilitan los botones
                 tNombre.setEnabled(true);
                 tApellido.setEnabled(true);
                 tLefono.setEnabled(true);
                 tProvincia.setEnabled(true);
+                //Lanzamos la consulta para mostrar todos los datos
                 ps = conn.prepararSentencia("SELECT * FROM PROPIETARIO WHERE DNI LIKE ?;");
+                //Le damos valor al comodín de la consulta
                 ps.setString(1, tDni.getText());
+                //Ejecutamos la consulta
                 rs = ps.executeQuery();
+                //Si el propietario existe rellenamos los campos con sus datos
                 if (rs.next()) {
                     tNombre.setText(rs.getString(2));
                     tApellido.setText(rs.getString(3));
                     tLefono.setText(rs.getString(4));
                     tProvincia.setText(rs.getString(5));
                 } else {
+                    //Si no existe mostramos mensaje de error
                     JOptionPane.showMessageDialog(this, "Este Propietario no existe en la base de datos", "Usuario inexistente", JOptionPane.ERROR_MESSAGE);
 
                 }
+                //Método que rellena la tabla con los vehículos del propietario
                 rellenaTabla();
             }
         } catch (SQLException e) {
@@ -279,8 +301,18 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_tDniActionPerformed
-
+    /**
+     * Al pulsar este botón se vaciarán todos los campos
+     *
+     * @param evt parámetro que llama al evento que vaciará todos los campos
+     */
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
+       limpiarDatos();
+    }//GEN-LAST:event_bCancelarActionPerformed
+   /**
+    * Método que deja todos los campos y tablas vacíos.
+    */
+    private void limpiarDatos(){
         tDni.setText("");
         tNombre.setText("");
         tApellido.setText("");
@@ -290,26 +322,53 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
         tApellido.setEnabled(false);
         tLefono.setEnabled(false);
         tProvincia.setEnabled(false);
+        //Método que borra los datos de la tabla
         LimpiarTabla();
-    }//GEN-LAST:event_bCancelarActionPerformed
+   }
+    /**
+     * Método que deja la tabla en blanco
+     */
     private void LimpiarTabla() {
         for (int i = 0; i < tabla.getRowCount(); i++) {
             modelo.removeRow(i);
             i -= 1;
         }
     }
+
+    /**
+     * Método que refresca los datos de la tabla
+     */
+    private void RefrescarTabla() {
+        for (int i = 0; i < tabla.getRowCount(); i++) {
+            modelo.removeRow(i);
+            i -= 1;
+        }
+        rellenaTabla();
+    }
+
+    /**
+     * Al pulsar este botón se borrarán los vehículos de el propietario
+     *
+     * @param evt parámetro que llama al evento que borra los vehículos de un
+     * propietario
+     */
     private void bVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVehiculoActionPerformed
         PreparedStatement ps = null;
         try {
+            //Si el dni es incorrecto mostrará el error y deberemos volver a escribirlo
             if (!compruebaDNI(tDni.getText())) {
                 JOptionPane.showMessageDialog(this, "!DNI INCORRECTO¡", "DNI incorrecto", JOptionPane.ERROR_MESSAGE);
                 tDni.setText("");
             } else {
+                //Si es correcto se lanza la consulta
                 ps = conn.prepararSentencia("DELETE FROM VEHICULO WHERE PROPIETARIO LIKE ?;");
+                //Se le da valor al comodín de la consulta
                 ps.setString(1, tDni.getText());
+                //Se ejecuta la consulta
                 int resultado = ps.executeUpdate();
                 JOptionPane.showMessageDialog(this, "¡VEHICULO ELIMINADO!", "Vehiculo", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
+                //Se refresca la tabla
+                RefrescarTabla();
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -324,19 +383,28 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_bVehiculoActionPerformed
-
+    /**
+     * Método que elimina el propietario introducido
+     *
+     * @param evt parámetro que llama al evento que elimina a un propietario
+     */
     private void bPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPropActionPerformed
         PreparedStatement ps = null;
         try {
             if (!compruebaDNI(tDni.getText())) {
+                //Si el dni es incorrecto salta el error y deberemos volver a escribirlo
                 JOptionPane.showMessageDialog(this, "!DNI INCORRECTO¡", "DNI incorrecto", JOptionPane.ERROR_MESSAGE);
                 tDni.setText("");
             } else {
+                //Se lanza la consulta
                 ps = conn.prepararSentencia("DELETE FROM PROPIETARIO WHERE DNI LIKE ?;");
+                //Se le da valor al comodín de la consulta
                 ps.setString(1, tDni.getText());
+                //Se ejecuta la consulta
                 int resultado = ps.executeUpdate();
                 JOptionPane.showMessageDialog(this, "¡PROPIETARIO ELIMINADO!", "Propietario", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
+                //Deja los campos vacíos
+                limpiarDatos();
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -351,14 +419,19 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_bPropActionPerformed
+    /**
+     * Método que rellena la tabla con los vehículos que posee un propietario
+     */
     private void rellenaTabla() {
         try {
-
+            //Lanzamos la consulta 
             PreparedStatement ps = conn.prepararSentencia("SELECT V.MATRICULA, V.MODELO, V.ANIO, concat_ws(' ',P.NOMBRE,P.APELLIDO)"
                     + "FROM VEHICULO V JOIN PROPIETARIO P ON(V.PROPIETARIO = P.DNI) WHERE V.PROPIETARIO LIKE ?");
+            //Le damos valor al comodín de la consulta
             ps.setString(1, tDni.getText());
+            //Ejecutamos la consulta
             ResultSet rs = ps.executeQuery();
-
+            //Mientras haya datos, añadiremos filas a la tabla
             while (rs.next()) {
                 modelo.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)});
             }

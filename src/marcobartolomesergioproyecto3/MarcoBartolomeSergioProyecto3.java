@@ -20,7 +20,9 @@ public class MarcoBartolomeSergioProyecto3 {
      */
     public static void main(String[] args) {
         Conexion conn = new Conexion();
+        //Conecto con la base de datos
         conn.Conectar("localhost", "3306", "vehiculos", "usuario", "abcdef");
+        //Llamo a la ventana principal
         VentanaPrincipal v = new VentanaPrincipal(conn);
         v.setVisible(true);
     }

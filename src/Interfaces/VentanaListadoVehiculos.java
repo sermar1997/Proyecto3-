@@ -14,8 +14,10 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
+ * Clase que lista todos los vehículos
  *
- * @author Sergio
+ * @author Sergio Marco
+ * @version 23/05/2017
  */
 public class VentanaListadoVehiculos extends javax.swing.JFrame implements ListSelectionListener {
 
@@ -26,13 +28,16 @@ public class VentanaListadoVehiculos extends javax.swing.JFrame implements ListS
     /**
      * Creates new form VentanaMuestraListadoVehiculos
      *
-     * @param conn
+     * @param conn parámetro que pasa la conexión
      */
     public VentanaListadoVehiculos(Conexion conn) {
         this.conn = conn;
         initComponents();
+        //Obtenemos el modelo de la tabla
         modelo = (DefaultTableModel) Tabla.getModel();
+        //Rellenamos la tabla
         rellenaTabla();
+        //Asignamos un listener para que cuando no haya nada seleccionado el botón esté dehabilitado
         ListSelectionModel modeloSeleccion = Tabla.getSelectionModel();
         modeloSeleccion.addListSelectionListener(this);
         BasigPropVe.setEnabled(false);
@@ -107,21 +112,31 @@ public class VentanaListadoVehiculos extends javax.swing.JFrame implements ListS
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     * Al pulsar el botón llamaremos a otra ventana a la que le pasaremos la
+     * matrícula para realizar el cambio de propietario
+     *
+     * @param evt parámetro que llama al evento que llama a la otra ventana
+     */
     private void BasigPropVeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BasigPropVeActionPerformed
+        //Guardamos la fila seleccionada
         int fila = Tabla.getSelectedRow();
+        //Guardamos la columna de la fila que habíamos guardado anteriormente
         String matricula = (String) Tabla.getValueAt(fila, 0);
+        //Le pasamos por parámetro la conexión y la matrícula.
         VentanaAsignaPropietario v = new VentanaAsignaPropietario(conn, matricula);
         v.setVisible(true);
-        dispose();
+        RefrescarTabla();
     }//GEN-LAST:event_BasigPropVeActionPerformed
-
+    /**
+     * Método que rellena la tabla
+     */
     private void rellenaTabla() {
         try {
-
+            //Ejecuta la consulta
             ResultSet rs = conn.consultaSinParametros("SELECT V.MATRICULA, V.MODELO, V.ANIO, concat_ws(' ',P.NOMBRE,P.APELLIDO)"
                     + "FROM VEHICULO V JOIN PROPIETARIO P ON(V.PROPIETARIO = P.DNI)ORDER BY V.ANIO DESC");
-
+            //Mientras haya datos añadirá filas a la tabla
             while (rs.next()) {
                 modelo.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)});
             }
@@ -131,19 +146,36 @@ public class VentanaListadoVehiculos extends javax.swing.JFrame implements ListS
         }
     }
 
+    /**
+     * Método que refresca los datos de la tabla
+     */
+    public void RefrescarTabla() {
+        for (int i = 0; i < Tabla.getRowCount(); i++) {
+            modelo.removeRow(i);
+            i -= 1;
+        }
+        rellenaTabla();
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BasigPropVe;
     private javax.swing.JTable Tabla;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-
+/**
+ * Método que habilita o deshabilita el botón en función de si hay algo seleccionado o no.
+ * @param e parámetro que llama al ListSelectionevent
+ */
     @Override
     public void valueChanged(ListSelectionEvent e) {
+        //Guardamos la fila
         int fila = Tabla.getSelectedRowCount();
-        if (fila== 0) {
+        //Si no hay alguna seleccionada deshabilitamos el botón
+        if (fila == 0) {
             BasigPropVe.setEnabled(false);
         } else {
+            //Si hay alguna seleccionada, habilitamos el botón
             BasigPropVe.setEnabled(true);
         }
     }

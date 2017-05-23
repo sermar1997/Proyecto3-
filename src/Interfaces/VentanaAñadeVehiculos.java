@@ -13,8 +13,10 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
+ * Esta clase añade un nuevo vehículo a la base de datos
  *
- * @author Sergio
+ * @author Sergio Marco
+ * @version 23/05/2017
  */
 public class VentanaAñadeVehiculos extends javax.swing.JFrame {
 
@@ -22,6 +24,8 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
 
     /**
      * Creates new form VentanaAñadeVehiculos
+     *
+     * @param conn parámetro que pasa la conexión
      */
     public VentanaAñadeVehiculos(Conexion conn) {
         this.conn = conn;
@@ -116,23 +120,33 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     * Al pulsar este botón se añadirá un nuevo coche a la base de datos.
+     *
+     * @param evt parámetro que llama al evento para añadir un nuevo coche a la
+     * base de datos
+     */
     private void bAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAñadirActionPerformed
         PreparedStatement ps = null;
         try {
+            //Si no valida todos los campos se volverá a introducir todo desde 0
             if (!validaTodo()) {
                 tMatricula.setText("");
                 tModelo.setText("");
                 tAnio.setText("");
                 tProp.setText("");
             } else {
+                //Si valida todos los datos inserto un nuevo vehículo en la base
                 ps = conn.prepararSentencia("INSERT INTO VEHICULO VALUES (?,?,?,?)");
+                //Añado los valores para los comodines de la consulta
                 ps.setString(1, tMatricula.getText());
                 ps.setString(2, tModelo.getText());
                 ps.setInt(3, Integer.parseInt(tAnio.getText()));
                 ps.setString(4, tProp.getText());
+                //Ejecuto la consulta
                 int resultado = ps.executeUpdate();
-                JOptionPane.showMessageDialog(this, "¡VEHICULO AÑADIDO!","Vehiculo",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "¡VEHICULO AÑADIDO!", "Vehiculo", JOptionPane.INFORMATION_MESSAGE);
+                //Se cierra la ventana
                 dispose();
             }
         } catch (SQLException e) {
@@ -152,36 +166,47 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_bAñadirActionPerformed
+    /**
+     * Método que valida que todos los métodos hayan devuelto true
+     *
+     * @return
+     */
     public boolean validaTodo() {
         boolean correcto = false;
+        //Si valida devolverá true, sino mostrará mensaje de error y devolverá falso
         if (validarMatricula()) {
             correcto = true;
         } else {
             JOptionPane.showMessageDialog(this, "Tienes que poner una matrícula correcta", "Matricula incorrecta", JOptionPane.ERROR_MESSAGE);
-            correcto = false;
+            return false;
         }
         if (!tModelo.getText().isEmpty()) {
-            correcto=true;
-        }else{
+            correcto = true;
+        } else {
             JOptionPane.showMessageDialog(this, "Tienes que poner un modelo correcto", "Modelo incorrecto", JOptionPane.ERROR_MESSAGE);
-            correcto = false;
+            return false;
         }
         if (validarAño()) {
             correcto = true;
         } else {
             JOptionPane.showMessageDialog(this, "Tienes que introducir un año correcto", "Año incorrecto", JOptionPane.ERROR_MESSAGE);
-            correcto = false;
+            return false;
         }
         if (!tProp.getText().isEmpty()) {
-            correcto=true;
-        }else{
+            correcto = true;
+        } else {
             JOptionPane.showMessageDialog(this, "Tienes que poner un propietario correcto", "Propietario incorrecto", JOptionPane.ERROR_MESSAGE);
-            correcto = false;
+            return false;
         }
 
         return correcto;
     }
 
+    /**
+     * Valida que la matrícula siga el patrón establecido
+     *
+     * @return
+     */
     public boolean validarMatricula() {
         Pattern pat = Pattern.compile("^[0-9]{4}-[A-Z]{3}$");
         Matcher mat = pat.matcher(tMatricula.getText());
@@ -192,6 +217,11 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Valida que el año siga el patrón establecido
+     *
+     * @return
+     */
     public boolean validarAño() {
         Pattern pat = Pattern.compile("[0-9]{4}$");
         Matcher mat = pat.matcher(tAnio.getText());
@@ -202,9 +232,6 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAñadir;
