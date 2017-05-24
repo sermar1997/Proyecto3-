@@ -106,4 +106,10 @@ public class Conexion {
         rs = prepararSentencia(consulta).executeQuery();
         return rs;
     }
+    public void confirmar() throws SQLException{
+        conexion.commit();
+    }
+    public void descartar() throws SQLException{
+        conexion.rollback();
+    }
 }

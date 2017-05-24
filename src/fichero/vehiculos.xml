@@ -8,22 +8,6 @@
             <Apellido>López</Apellido>
         </Propietario>
     </Vehículo>
-    <Vehículo Matricula="1111-AAA">
-        <Modelo>MOJON</Modelo>
-        <Año>2017</Año>
-        <Propietario>
-            <Nombre>Sergio</Nombre>
-            <Apellido>Marco</Apellido>
-        </Propietario>
-    </Vehículo>
-    <Vehículo Matricula="1111-JJJ">
-        <Modelo>RABOGORDO</Modelo>
-        <Año>2017</Año>
-        <Propietario>
-            <Nombre>Sergio</Nombre>
-            <Apellido>Marco</Apellido>
-        </Propietario>
-    </Vehículo>
     <Vehículo Matricula="2145-HNT">
         <Modelo>Skoda Octavia</Modelo>
         <Año>2013</Año>
@@ -67,6 +51,14 @@
     <Vehículo Matricula="5896-FNM">
         <Modelo>Peugeot 207</Modelo>
         <Año>2007</Año>
+        <Propietario>
+            <Nombre>Irene</Nombre>
+            <Apellido>López</Apellido>
+        </Propietario>
+    </Vehículo>
+    <Vehículo Matricula="6598-CPL">
+        <Modelo>Seat Leon</Modelo>
+        <Año>2003</Año>
         <Propietario>
             <Nombre>Irene</Nombre>
             <Apellido>López</Apellido>

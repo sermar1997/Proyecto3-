@@ -8,6 +8,7 @@ package Interfaces;
 import Conexión.Conexion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -124,9 +125,9 @@ public class VentanaListadoVehiculos extends javax.swing.JFrame implements ListS
         //Guardamos la columna de la fila que habíamos guardado anteriormente
         String matricula = (String) Tabla.getValueAt(fila, 0);
         //Le pasamos por parámetro la conexión y la matrícula.
-        VentanaAsignaPropietario v = new VentanaAsignaPropietario(conn, matricula);
+        VentanaAsignaPropietario v = new VentanaAsignaPropietario(conn, matricula, Tabla);
         v.setVisible(true);
-        RefrescarTabla();
+        dispose();
     }//GEN-LAST:event_BasigPropVeActionPerformed
     /**
      * Método que rellena la tabla
@@ -148,8 +149,9 @@ public class VentanaListadoVehiculos extends javax.swing.JFrame implements ListS
 
     /**
      * Método que refresca los datos de la tabla
+     * @param tabla parámetro que indica la tabla que va a modificar
      */
-    public void RefrescarTabla() {
+    public void RefrescarTabla(JTable tabla) {
         for (int i = 0; i < Tabla.getRowCount(); i++) {
             modelo.removeRow(i);
             i -= 1;
