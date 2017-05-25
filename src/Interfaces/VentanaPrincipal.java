@@ -10,7 +10,8 @@ import javax.swing.JOptionPane;
 import marcobartolomesergioproyecto3.ExportarXML;
 
 /**
- *Clase que llama a las demás ventanas o clases.
+ * Clase que llama a las demás ventanas o clases.
+ *
  * @author Sergio Marco
  * @version 23/05/2017
  */
@@ -162,7 +163,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-   /**
+    /**
      * Al ejecutar este botón se exportará a un documento XML
      *
      * @param evt parámetro que llama al evento que exporta el código a
@@ -181,25 +182,29 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_bFicheroXMLActionPerformed
 
     private void bListadoPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bListadoPropActionPerformed
-
+        VentanaListadoPropietarios v = new VentanaListadoPropietarios(conn);
+        v.setVisible(true);
     }//GEN-LAST:event_bListadoPropActionPerformed
 
     private void bBajaPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBajaPropActionPerformed
-
+        VentanaBajaPropietario v = new VentanaBajaPropietario(conn);
+        v.setVisible(true);
     }//GEN-LAST:event_bBajaPropActionPerformed
 
     private void bListadoVehiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bListadoVehiculosActionPerformed
-
+        VentanaListadoVehiculos v = new VentanaListadoVehiculos(conn);
+        v.setVisible(true);
     }//GEN-LAST:event_bListadoVehiculosActionPerformed
 
     private void BañadePropietarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BañadePropietarioActionPerformed
-
+        VentanaAñadePropietario v = new VentanaAñadePropietario(conn);
+        v.setVisible(true);
     }//GEN-LAST:event_BañadePropietarioActionPerformed
 
     private void BañadeVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BañadeVehiculoActionPerformed
-
+        VentanaAñadeVehiculos v = new VentanaAñadeVehiculos(conn);
+        v.setVisible(true);
     }//GEN-LAST:event_BañadeVehiculoActionPerformed
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
