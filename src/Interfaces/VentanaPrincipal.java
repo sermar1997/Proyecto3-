@@ -44,19 +44,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         bBajaProp = new javax.swing.JButton();
         bListadoProp = new javax.swing.JButton();
         bFicheroXML = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("VENTANA PRINCIPAL");
 
-        Panel.setBackground(new java.awt.Color(255, 255, 153));
+        Panel.setBackground(new java.awt.Color(255, 255, 255));
 
-        BañadeVehiculo.setText("Añadir Vehículos a la Base de Datos");
+        BañadeVehiculo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/coche.jpg"))); // NOI18N
+        BañadeVehiculo.setText("Añadir Vehículos ");
         BañadeVehiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BañadeVehiculoActionPerformed(evt);
             }
         });
 
+        BañadePropietario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/persona.jpg"))); // NOI18N
         BañadePropietario.setText("Añadir Propietario");
         BañadePropietario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,13 +67,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        bListadoVehiculos.setText("Mostrar un Listado de todos los vehiculos");
+        bListadoVehiculos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lista.jpg"))); // NOI18N
+        bListadoVehiculos.setText("Mostrar Listado de Vehículos");
         bListadoVehiculos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bListadoVehiculosActionPerformed(evt);
             }
         });
 
+        bBajaProp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/baja.jpg"))); // NOI18N
         bBajaProp.setText("Dar de baja a un propietario");
         bBajaProp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,6 +83,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        bListadoProp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lista.jpg"))); // NOI18N
         bListadoProp.setText("Mostrar un listado de propietarios");
         bListadoProp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,6 +91,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        bFicheroXML.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/exportar.jpg"))); // NOI18N
         bFicheroXML.setText("Exportar los datos a un fichero XML");
         bFicheroXML.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,44 +99,60 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo.jpg"))); // NOI18N
+
         javax.swing.GroupLayout PanelLayout = new javax.swing.GroupLayout(Panel);
         Panel.setLayout(PanelLayout);
         PanelLayout.setHorizontalGroup(
             PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BañadePropietario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bListadoVehiculos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
-                    .addComponent(bFicheroXML, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bListadoProp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bBajaProp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BañadeVehiculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelLayout.createSequentialGroup()
+                .addGroup(PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(PanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1))
+                    .addGroup(PanelLayout.createSequentialGroup()
+                        .addGroup(PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(bBajaProp, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(BañadeVehiculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(84, 84, 84)
+                        .addGroup(PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(BañadePropietario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bListadoProp, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE))))
+                .addGap(64, 64, 64)
+                .addGroup(PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(bListadoVehiculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bFicheroXML, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(21, 21, 21))
         );
         PanelLayout.setVerticalGroup(
             PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(BañadeVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(BañadePropietario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bListadoVehiculos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bBajaProp, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bListadoProp, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bFicheroXML, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5))
+                .addGap(25, 25, 25)
+                .addComponent(jLabel1)
+                .addGap(76, 76, 76)
+                .addGroup(PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BañadeVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BañadePropietario, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bListadoVehiculos, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(56, 56, 56)
+                .addGroup(PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(bFicheroXML, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bListadoProp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bBajaProp, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,58 +161,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-/**
-     * Al ejecutar este botón se abrirá la ventana que añade los vehículos
-     *
-     * @param evt parámetro que llama al evento que llama a la ventana que añade
-     * los vehículos
-     */
-    private void BañadeVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BañadeVehiculoActionPerformed
-        VentanaAñadeVehiculos v = new VentanaAñadeVehiculos(conn);
-        v.setVisible(true);
-    }//GEN-LAST:event_BañadeVehiculoActionPerformed
-    /**
-     * Al ejecutar este botón se abrirá la ventana que añade a los propietarios
-     *
-     * @param evt parámetro que llama al evento que llama a la ventana que añade
-     * a los propietarios
-     */
-    private void BañadePropietarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BañadePropietarioActionPerformed
-        VentanaAñadePropietario v = new VentanaAñadePropietario(conn);
-        v.setVisible(true);
-    }//GEN-LAST:event_BañadePropietarioActionPerformed
-    /**
-     * Al ejecutar este botón se abrirá la ventana que lista los Vehículos
-     *
-     * @param evt parámetro que llama al evento que llama a la ventana que lista
-     * los Vehículos
-     */
-    private void bListadoVehiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bListadoVehiculosActionPerformed
-        VentanaListadoVehiculos v = new VentanaListadoVehiculos(conn);
-        v.setVisible(true);
-    }//GEN-LAST:event_bListadoVehiculosActionPerformed
-    /**
-     * Al ejecutar este botón se abrirá la ventana que da de baja a los
-     * propietarios
-     *
-     * @param evt parámetro que llama al evento que llama a la ventana que da de
-     * baja a los propietarios
-     */
-    private void bBajaPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBajaPropActionPerformed
-        VentanaBajaPropietario v = new VentanaBajaPropietario(conn);
-        v.setVisible(true);
-    }//GEN-LAST:event_bBajaPropActionPerformed
-    /**
-     * Al ejecutar este botón se abrirá la ventana que lista los propietarios
-     *
-     * @param evt parámetro que llama al evento que llama a la ventana que lista
-     * los propietarios
-     */
-    private void bListadoPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bListadoPropActionPerformed
-        VentanaListadoPropietarios v = new VentanaListadoPropietarios(conn);
-        v.setVisible(true);
-    }//GEN-LAST:event_bListadoPropActionPerformed
-    /**
+
+   /**
      * Al ejecutar este botón se exportará a un documento XML
      *
      * @param evt parámetro que llama al evento que exporta el código a
@@ -205,8 +178,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "No se ha podido exportar a XML", "Exportar", JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_bFicheroXMLActionPerformed
+
+    private void bListadoPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bListadoPropActionPerformed
+
+    }//GEN-LAST:event_bListadoPropActionPerformed
+
+    private void bBajaPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBajaPropActionPerformed
+
+    }//GEN-LAST:event_bBajaPropActionPerformed
+
+    private void bListadoVehiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bListadoVehiculosActionPerformed
+
+    }//GEN-LAST:event_bListadoVehiculosActionPerformed
+
+    private void BañadePropietarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BañadePropietarioActionPerformed
+
+    }//GEN-LAST:event_BañadePropietarioActionPerformed
+
+    private void BañadeVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BañadeVehiculoActionPerformed
+
+    }//GEN-LAST:event_BañadeVehiculoActionPerformed
 
 
 
@@ -218,5 +210,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton bFicheroXML;
     private javax.swing.JButton bListadoProp;
     private javax.swing.JButton bListadoVehiculos;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
