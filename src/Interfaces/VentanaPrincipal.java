@@ -6,6 +6,9 @@
 package Interfaces;
 
 import Conexión.Conexion;
+import java.awt.Image;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import marcobartolomesergioproyecto3.ExportarXML;
 
@@ -26,8 +29,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     public VentanaPrincipal(Conexion conn) {
         this.conn = conn;
+        setIconImage(new ImageIcon(getClass().getResource("..\\Imagenes\\icono.jpg")).getImage());
         initComponents();
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,7 +53,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("VENTANA PRINCIPAL");
+        setTitle("SMOTORS");
 
         Panel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -112,13 +117,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1))
                     .addGroup(PanelLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(bBajaProp, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(BañadeVehiculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(bBajaProp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                            .addComponent(BañadeVehiculo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(84, 84, 84)
                         .addGroup(PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(BañadePropietario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

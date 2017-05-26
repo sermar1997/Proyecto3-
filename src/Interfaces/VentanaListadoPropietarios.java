@@ -11,11 +11,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  * Clase que filtra propietarios por número de coches o por provincia
+ *
  * @author Sergio Marco
  * @version 23/05/2017
  */
@@ -25,12 +27,13 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
     Conexion conn;
 
     /**
-     * Creates new form VentanaListadoPropietarios
-     * Constructor de la clase
+     * Creates new form VentanaListadoPropietarios Constructor de la clase
+     *
      * @param conn parámetro que devuelve la conexión
      */
     public VentanaListadoPropietarios(Conexion conn) {
         this.conn = conn;
+        setIconImage(new ImageIcon(getClass().getResource("..\\Imagenes\\icono.jpg")).getImage());
         initComponents();
         //Obtenemos el modelo de la tabla
         modelo = (DefaultTableModel) tabla.getModel();
@@ -168,9 +171,10 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 /**
- * Al pulsar el botón se filtrarán los propietarios
- * @param evt parámetro que llama al evento que filtrará por propietarios
- */
+     * Al pulsar el botón se filtrarán los propietarios
+     *
+     * @param evt parámetro que llama al evento que filtrará por propietarios
+     */
     private void bFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bFiltrarActionPerformed
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -234,6 +238,7 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
     }//GEN-LAST:event_bFiltrarActionPerformed
     /**
      * Método que validará la provincia con ese patrón
+     *
      * @return provincia validada
      */
     public boolean validaProvincia() {
@@ -246,10 +251,12 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
             return false;
         }
     }
-/**
- * Método que validará el nº vehículos con ese patrón
- * @return vehículo validado
- */
+
+    /**
+     * Método que validará el nº vehículos con ese patrón
+     *
+     * @return vehículo validado
+     */
     public boolean validaVehiculos() {
         Pattern pat = Pattern.compile("[0-9]{1}|[0-9]{2}");
         Matcher mat = pat.matcher(tVehiculos.getText());
@@ -260,9 +267,10 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
             return false;
         }
     }
-/**
- * Método que rellena los datos de una tabla
- */
+
+    /**
+     * Método que rellena los datos de una tabla
+     */
     private void rellenaTabla() {
         try {
             //Lanzamos la consulta
@@ -278,9 +286,10 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-/**
- * Método que borra los datos de la tabla
- */
+
+    /**
+     * Método que borra los datos de la tabla
+     */
     private void LimpiarTabla() {
         for (int i = 0; i < tabla.getRowCount(); i++) {
             modelo.removeRow(i);

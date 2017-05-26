@@ -8,6 +8,7 @@ package Interfaces;
 import Conexión.Conexion;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
@@ -38,6 +39,7 @@ public class VentanaAsignaPropietario extends javax.swing.JFrame {
         this.tabla = tabla;
         this.matricula = matricula;
         v = new VentanaListadoVehiculos(conn);
+        setIconImage(new ImageIcon(getClass().getResource("..\\Imagenes\\icono.jpg")).getImage());
         initComponents();
     }
 

@@ -6,14 +6,17 @@
 package Interfaces;
 
 import Conexión.Conexion;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
  * Clase que añade un propietario a la base de datos.
+ *
  * @author Sergio Marco
  * @version 23/05/2017
  */
@@ -28,6 +31,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
      */
     public VentanaAñadePropietario(Conexion conn) {
         this.conn = conn;
+        setIconImage(new ImageIcon(getClass().getResource("..\\Imagenes\\icono.jpg")).getImage());
         initComponents();
     }
 
@@ -181,9 +185,11 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 /**
- * Al pulsar el botón se añadirá el propietario a la base de datos
- * @param evt parámetro que llama al evento que añade un propietario a la base de datos
- */
+     * Al pulsar el botón se añadirá el propietario a la base de datos
+     *
+     * @param evt parámetro que llama al evento que añade un propietario a la
+     * base de datos
+     */
     private void bAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAñadirActionPerformed
         PreparedStatement ps = null;
         try {
@@ -220,6 +226,8 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
             if (ps != null) {
                 try {
                     ps.close();
+                }catch(MySQLIntegrityConstraintViolationException e){
+                    System.out.println("Ya existe en la base de datos.");
                 } catch (SQLException ex) {
                     ex.getMessage();
                 }
@@ -228,7 +236,8 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
     }//GEN-LAST:event_bAñadirActionPerformed
     /**
      * Método que valida que todos los métodos funcionen correctamente
-     * @return 
+     *
+     * @return
      */
     public boolean validaTodo() {
         boolean correcto = false;
@@ -265,10 +274,12 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
         }
         return correcto;
     }
-/**
- * Método que valida que el nombre que introducimos siga el siguiente patrón
- * @return nombre validado
- */
+
+    /**
+     * Método que valida que el nombre que introducimos siga el siguiente patrón
+     *
+     * @return nombre validado
+     */
     public boolean validaNombre() {
         Pattern pat = Pattern.compile("^[A-Z].*[a-z].*");
         Matcher mat = pat.matcher(tNombre.getText());
@@ -279,10 +290,13 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
             return false;
         }
     }
-/**
- * Método que valida que el apellido que introducimos siga el siguiente patrón
- * @return apellido validado
- */
+
+    /**
+     * Método que valida que el apellido que introducimos siga el siguiente
+     * patrón
+     *
+     * @return apellido validado
+     */
     public boolean validaApellido() {
         Pattern pat = Pattern.compile("^[A-Z].*[a-z].*");
         Matcher mat = pat.matcher(tApellido.getText());
@@ -293,10 +307,13 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
             return false;
         }
     }
-/**
- * Método que valida que el teléfono que introducimos siga el siguiente patrón
- * @return telefono validado
- */
+
+    /**
+     * Método que valida que el teléfono que introducimos siga el siguiente
+     * patrón
+     *
+     * @return telefono validado
+     */
     public boolean validaTelefono() {
         Pattern pat = Pattern.compile("^(\\+?)([0-9]{2})?[9|6|7][0-9]{8}$");
         Matcher mat = pat.matcher(tLefono.getText());
@@ -307,10 +324,13 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
             return false;
         }
     }
-/**
- * Método que valida que la provincia que introducimos siga el siguiente patrón
- * @return provincia validada
- */
+
+    /**
+     * Método que valida que la provincia que introducimos siga el siguiente
+     * patrón
+     *
+     * @return provincia validada
+     */
     public boolean validaProvincia() {
         Pattern pat = Pattern.compile("(Zaragoza|Huesca|Teruel)");
         Matcher mat = pat.matcher(tProvincia.getText());
@@ -321,11 +341,13 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
             return false;
         }
     }
-/**
- * Método que valida que el dni que introducimos sea correcto y no inventado
- * @param dni parámetro que pasa el dni introducido.
- * @return dni validado
- */
+
+    /**
+     * Método que valida que el dni que introducimos sea correcto y no inventado
+     *
+     * @param dni parámetro que pasa el dni introducido.
+     * @return dni validado
+     */
     private boolean compruebaDNI(String dni) {
         String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
         String numeros = "0123456789";

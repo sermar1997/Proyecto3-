@@ -8,6 +8,7 @@ package Interfaces;
 import Conexión.Conexion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -33,6 +34,7 @@ public class VentanaListadoVehiculos extends javax.swing.JFrame implements ListS
      */
     public VentanaListadoVehiculos(Conexion conn) {
         this.conn = conn;
+        setIconImage(new ImageIcon(getClass().getResource("..\\Imagenes\\icono.jpg")).getImage());
         initComponents();
         //Obtenemos el modelo de la tabla
         modelo = (DefaultTableModel) Tabla.getModel();
@@ -174,6 +176,7 @@ public class VentanaListadoVehiculos extends javax.swing.JFrame implements ListS
 
     /**
      * Método que refresca los datos de la tabla
+     *
      * @param tabla parámetro que indica la tabla que va a modificar
      */
     public void RefrescarTabla(JTable tabla) {
@@ -193,9 +196,11 @@ public class VentanaListadoVehiculos extends javax.swing.JFrame implements ListS
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 /**
- * Método que habilita o deshabilita el botón en función de si hay algo seleccionado o no.
- * @param e parámetro que llama al ListSelectionevent
- */
+     * Método que habilita o deshabilita el botón en función de si hay algo
+     * seleccionado o no.
+     *
+     * @param e parámetro que llama al ListSelectionevent
+     */
     @Override
     public void valueChanged(ListSelectionEvent e) {
         //Guardamos la fila

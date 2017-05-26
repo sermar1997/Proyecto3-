@@ -9,6 +9,7 @@ import Conexión.Conexion;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,6 +30,7 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
      * @param conn parámetro que pasa la conexión
      */
     public VentanaBajaPropietario(Conexion conn) {
+        setIconImage(new ImageIcon(getClass().getResource("..\\Imagenes\\icono.jpg")).getImage());
         this.conn = conn;
         initComponents();
         //Por defecto los botones estarán desactivados
@@ -371,12 +373,12 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
      * @param evt parámetro que llama al evento que vaciará todos los campos
      */
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
-       limpiarDatos();
+        limpiarDatos();
     }//GEN-LAST:event_bCancelarActionPerformed
-   /**
-    * Método que deja todos los campos y tablas vacíos.
-    */
-    private void limpiarDatos(){
+    /**
+     * Método que deja todos los campos y tablas vacíos.
+     */
+    private void limpiarDatos() {
         tDni.setText("");
         tNombre.setText("");
         tApellido.setText("");
@@ -388,7 +390,8 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
         tProvincia.setEnabled(false);
         //Método que borra los datos de la tabla
         LimpiarTabla();
-   }
+    }
+
     /**
      * Método que deja la tabla en blanco
      */

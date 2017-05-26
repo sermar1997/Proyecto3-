@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,6 +30,7 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
      */
     public VentanaAñadeVehiculos(Conexion conn) {
         this.conn = conn;
+        setIconImage(new ImageIcon(getClass().getResource("..\\Imagenes\\icono.jpg")).getImage());
         initComponents();
     }
 
