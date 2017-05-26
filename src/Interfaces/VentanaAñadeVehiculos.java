@@ -200,19 +200,23 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
                 dispose();
             }
         } catch (SQLException e) {
-            if (e.getErrorCode() == 1216) {
-                JOptionPane.showMessageDialog(this, "El propietario no existe en la base de datos", "Añadir Vehículos", JOptionPane.ERROR_MESSAGE);
+            switch (e.getErrorCode()) {
+                case 1216:
+                    JOptionPane.showMessageDialog(this, "El propietario no existe en la base de datos", "Añadir Vehículos", JOptionPane.ERROR_MESSAGE);
+                    break;
+                case 1452:
+                    JOptionPane.showMessageDialog(this, "No existe el propietario", "Añadir Vehículos", JOptionPane.ERROR_MESSAGE);
+                    break;
+                default:
+                    System.out.println(e.getMessage());
+                    break;
             }
-            System.out.println(e.getMessage());
         } finally {
             // Cerrar statement
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException ex) {
-                    if (ex.getErrorCode() == 1062) {
-                        JOptionPane.showMessageDialog(this, "Clave primaria repetida");
-                    }
                     ex.getMessage();
                 }
             }

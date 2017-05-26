@@ -6,8 +6,11 @@
 package Interfaces;
 
 import Conexión.Conexion;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import marcobartolomesergioproyecto3.Excepcion;
 import marcobartolomesergioproyecto3.ExportarXML;
 
 /**
@@ -172,12 +175,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void bFicheroXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bFicheroXMLActionPerformed
         //Instancio la clase
         ExportarXML e = new ExportarXML(conn);
-        //Si el método da true se exportará si no saldrá un mensaje de error
-        //y no se ecportará
-        if (e.exportar()) {
-            JOptionPane.showMessageDialog(this, "Has exportado a XML con éxito", "Exportar", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "No se ha podido exportar a XML", "Exportar", JOptionPane.ERROR_MESSAGE);
+        try {
+            //Si el método da true se exportará si no saldrá un mensaje de error
+            //y no se exportará
+            if (e.exportar()) {
+                JOptionPane.showMessageDialog(this, "Has exportado a XML con éxito", "Exportar", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se ha podido exportar a XML", "Exportar", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Excepcion ex) {
+                            JOptionPane.showMessageDialog(this, "No se ha podido exportar a XML", "Exportar", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_bFicheroXMLActionPerformed
 

@@ -169,7 +169,17 @@ public class VentanaAsignaPropietario extends javax.swing.JFrame {
 
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            switch (e.getErrorCode()) {
+                case 1216:
+                    JOptionPane.showMessageDialog(this, "El propietario no existe en la base de datos", "Añadir Vehículos", JOptionPane.ERROR_MESSAGE);
+                    break;
+                case 1452:
+                    JOptionPane.showMessageDialog(this, "No existe el propietario", "Añadir Vehículos", JOptionPane.ERROR_MESSAGE);
+                    break;
+                default:
+                    System.out.println(e.getMessage());
+                    break;
+            }
         } finally {
             // Cerrar statement
             if (ps != null) {

@@ -10,6 +10,7 @@ import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -118,10 +119,12 @@ public class ExportarXML {
             Source source = new DOMSource(doc);
             Result result = new StreamResult(f = new File("src/fichero/vehiculos.xml"));
             if (f.exists()) {
-                throw new Excepcion("Fichero existente");
-            }
             Transformer trans = TransformerFactory.newInstance().newTransformer();
-            trans.transform(source, result);
+            trans.transform(source, result);    
+            }else{
+                System.out.println("Fichero no existente");
+            }
+            
         } catch (NullPointerException e) {
             throw new Excepcion("Ruta no encontrada");
         } catch (SQLException e) {
