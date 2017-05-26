@@ -23,28 +23,36 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
+import marcobartolomesergioproyecto3.Excepcion;
 
 /**
- *Esta clase representa el proceso de exportar a un fuchero XML nuestra información de la base de datos
+ * Esta clase representa el proceso de exportar a un fuchero XML nuestra
+ * información de la base de datos
+ *
  * @author Sergio Marco
  * @version: 23/05/2017
  */
 public class ExportarXML {
 
     Conexion conn;
-/**
- * Constructor en el cual se le pasa la conexión a la base de datos
- * @param conn parámetro que nos pasa la conexión
- */
+
+    /**
+     * Constructor en el cual se le pasa la conexión a la base de datos
+     *
+     * @param conn parámetro que nos pasa la conexión
+     */
     public ExportarXML(Conexion conn) {
         this.conn = conn;
     }
-/**
- * Método en el cual conseguimos exportar los datos de la bbdd al fichero XML
- * @return devuelve la exportación
- */
-    public boolean exportar() {
-        
+
+    /**
+     * Método en el cual conseguimos exportar los datos de la bbdd al fichero
+     * XML
+     *
+     * @return devuelve la exportación
+     */
+    public boolean exportar() throws Excepcion {
+        File f;
         PreparedStatement ps = null;
         ResultSet rs = null;
         ResultSet rs1 = null;
@@ -108,12 +116,14 @@ public class ExportarXML {
             }
             //Transforma todo a un documento XML en la ruta especificada
             Source source = new DOMSource(doc);
-            Result result = new StreamResult(new File("src/fichero/vehiculos.xml"));
+            Result result = new StreamResult(f = new File("src/fichero/vehiculos.xml"));
+            if (f.exists()) {
+                throw new Excepcion("Fichero existente");
+            }
             Transformer trans = TransformerFactory.newInstance().newTransformer();
             trans.transform(source, result);
         } catch (NullPointerException e) {
-            e.getMessage();
-            return false;
+            throw new Excepcion("Ruta no encontrada");
         } catch (SQLException e) {
             e.getMessage();
             return false;

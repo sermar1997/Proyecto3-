@@ -200,6 +200,9 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
                 dispose();
             }
         } catch (SQLException e) {
+            if (e.getErrorCode() == 1216) {
+                JOptionPane.showMessageDialog(this, "El propietario no existe en la base de datos", "Añadir Vehículos", JOptionPane.ERROR_MESSAGE);
+            }
             System.out.println(e.getMessage());
         } finally {
             // Cerrar statement

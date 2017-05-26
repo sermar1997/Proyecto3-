@@ -7,6 +7,7 @@ package marcobartolomesergioproyecto3;
 
 import Conexión.Conexion;
 import Interfaces.VentanaPrincipal;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,10 +22,15 @@ public class MarcoBartolomeSergioProyecto3 {
     public static void main(String[] args) {
         Conexion conn = new Conexion();
         //Conecto con la base de datos
-        conn.Conectar("localhost", "3306", "vehiculos", "usuario", "abcdef");
-        //Llamo a la ventana principal
+        if (conn.Conectar("localhost", "3306", "vehiculos", "usuario", "abcdef")) {
+            //Llamo a la ventana principal
         VentanaPrincipal v = new VentanaPrincipal(conn);
         v.setVisible(true);
+        }else{
+            System.out.println("No se ha podido conectar con la base de datos.");
+        }
+        
+        
     }
     
 }
