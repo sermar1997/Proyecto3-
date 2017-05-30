@@ -71,6 +71,7 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
         bProp = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("DAR  DE BAJA A PROPIETARIOS");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 

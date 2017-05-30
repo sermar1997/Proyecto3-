@@ -62,6 +62,7 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
         tProvincia = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("LISTAR PROPIETARIOS");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 

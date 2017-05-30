@@ -57,6 +57,7 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
         tProp = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("AÑADIR VEHÍCULOS");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -180,10 +181,10 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
         try {
             //Si no valida todos los campos se volverá a introducir todo desde 0
             if (!validaTodo()) {
-                tMatricula.setText("");
-                tModelo.setText("");
-                tAnio.setText("");
-                tProp.setText("");
+                
+                
+                
+                
             } else {
                 //Si valida todos los datos inserto un nuevo vehículo en la base
                 ps = conn.prepararSentencia("INSERT INTO VEHICULO VALUES (?,?,?,?)");
@@ -205,6 +206,9 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
                     break;
                 case 1452:
                     JOptionPane.showMessageDialog(this, "No existe el propietario", "Añadir Vehículos", JOptionPane.ERROR_MESSAGE);
+                    break;
+                    case 1062:
+                    JOptionPane.showMessageDialog(this, "Matrícula Duplicada", "Añadir Vehículos", JOptionPane.ERROR_MESSAGE);
                     break;
                 default:
                     System.out.println(e.getMessage());
@@ -233,24 +237,28 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
         if (validarMatricula()) {
             correcto = true;
         } else {
+            tMatricula.setText("");
             JOptionPane.showMessageDialog(this, "Tienes que poner una matrícula correcta", "Matricula incorrecta", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         if (!tModelo.getText().isEmpty()) {
             correcto = true;
         } else {
+            tModelo.setText("");
             JOptionPane.showMessageDialog(this, "Tienes que poner un modelo correcto", "Modelo incorrecto", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         if (validarAño()) {
             correcto = true;
         } else {
+            tAnio.setText("");
             JOptionPane.showMessageDialog(this, "Tienes que introducir un año correcto", "Año incorrecto", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         if (!tProp.getText().isEmpty()) {
             correcto = true;
         } else {
+            tProp.setText("");
             JOptionPane.showMessageDialog(this, "Tienes que poner un propietario correcto", "Propietario incorrecto", JOptionPane.ERROR_MESSAGE);
             return false;
         }
