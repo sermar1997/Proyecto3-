@@ -237,7 +237,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
     /**
      * Método que valida que todos los métodos funcionen correctamente
      *
-     * @return
+     * @return true si valida todos los método y false si no los valida
      */
     public boolean validaTodo() {
         boolean correcto = false;

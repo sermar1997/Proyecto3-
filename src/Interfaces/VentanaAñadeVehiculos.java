@@ -225,7 +225,7 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
     /**
      * Método que valida que todos los métodos hayan devuelto true
      *
-     * @return todos los métodos validados
+     * @return true si valida todos los métodos y false si no los valida.
      */
     public boolean validaTodo() {
         boolean correcto = false;
