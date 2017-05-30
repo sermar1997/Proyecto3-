@@ -25,7 +25,7 @@ public class VentanaListadoVehiculos extends javax.swing.JFrame implements ListS
 
     Conexion conn;
     DefaultTableModel modelo;
-    Object columna;
+    
 
     /**
      * Creates new form VentanaMuestraListadoVehiculos
