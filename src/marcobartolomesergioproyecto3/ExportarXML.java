@@ -10,7 +10,6 @@ import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -24,7 +23,6 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
-import marcobartolomesergioproyecto3.Excepcion;
 
 /**
  * Esta clase representa el proceso de exportar a un fuchero XML nuestra
@@ -50,7 +48,8 @@ public class ExportarXML {
      * Método en el cual conseguimos exportar los datos de la bbdd al fichero
      * XML
      *
-     * @return devuelve la exportación
+     * @return devuelve la true si exporta correctamente el fichero y false si no lo exporta
+     * @throws marcobartolomesergioproyecto3.Excepcion  
      */
     public boolean exportar() throws Excepcion {
         File f;
@@ -88,41 +87,63 @@ public class ExportarXML {
                 Element modelos = doc.createElement("Modelo");
                 //Le creo un nodo texto y le introduzco el valor que he guardado de la consulta
                 Text m = doc.createTextNode(modelo);
+                //Añado el texto al elemento 
                 modelos.appendChild(m);
+                //Añado el elemento modelos al elemento vehiculo
                 vehiculo.appendChild(modelos);
+                //Creo el elemento anios
                 Element anios = doc.createElement("Año");
+                //Añado anios a vehiculo
                 vehiculo.appendChild(anios);
+                //Creo un nodo texto y le doy el valor de anio
                 Text a = doc.createTextNode(String.valueOf(anio));
+                //Añado el texto a anios
                 anios.appendChild(a);
+                //Creo el elemento propietarios
                 Element propietarios = doc.createElement("Propietario");
+                //Añado el elemento propietarios a vehiculo.
                 vehiculo.appendChild(propietarios);
                 //Lanzo consulta para seleccionar el nombre y el apellido del propietario
                 ps = conn.prepararSentencia("SELECT NOMBRE, APELLIDO FROM PROPIETARIO WHERE DNI LIKE ?");
                 //Le introduzco que el valor del dni sea igual al campo que he guardado de la base de datos
                 ps.setString(1, propietario);
+                //Lanzo el resultset
                 rs1 = ps.executeQuery();
+                //Mientras que siga habiendo resultados
                 while (rs1.next()) {
+                    //Guardo los datos que obtengo en variables
                     String nombre = rs1.getString(1);
                     String apellido = rs1.getString(2);
+                    //Creo el elemento nombres
                     Element nombres = doc.createElement("Nombre");
+                    //Creo el nodo de texto y le doy el valor de la variable nombre
                     Text n = doc.createTextNode(nombre);
+                    //Creo el nodo de texto y le doy el valor de la variable apellido
                     Text ape = doc.createTextNode(apellido);
+                    //Añado el nodo de texto a nombres
                     nombres.appendChild(n);
+                    //Añado el elemento nombres a propietarios
                     propietarios.appendChild(nombres);
+                    //Creo el elemento apellidos
                     Element apellidos = doc.createElement("Apellido");
+                    //Añado el nodo de texto a apellidos
                     apellidos.appendChild(ape);
+                    //Añado apellidos a propietarios
                     propietarios.appendChild(apellidos);
                 }
+                //Si realiza todo correctamente devolverá true
                 correcto = true;
             }
             //Transforma todo a un documento XML en la ruta especificada
             Source source = new DOMSource(doc);
             Result result = new StreamResult(f = new File("src/fichero/vehiculos.xml"));
+            //Si el fichero existe realizará la transformación, sino mostrará un mensaje
             if (f.exists()) {
             Transformer trans = TransformerFactory.newInstance().newTransformer();
             trans.transform(source, result);    
-            }else{
+            }else{    
                 System.out.println("Fichero no existente");
+            return false;
             }
             
         } catch (NullPointerException e) {

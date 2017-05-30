@@ -11,7 +11,10 @@ package marcobartolomesergioproyecto3;
  * @version 26/05/2017
  */
 public class Excepcion extends Exception {
-
+/**
+ * Constructor de mi excepción personalizada.
+ * @param mensaje parámetro que introducimos que será el mensaje que mostrará la excepción
+ */
     public Excepcion(String mensaje) {
         super(mensaje);
     }

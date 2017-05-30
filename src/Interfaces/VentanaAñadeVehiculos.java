@@ -98,7 +98,7 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(231, 231, 231)
                                 .addComponent(bAñadir)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 302, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,10 +108,9 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tProp, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(tAnio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                                .addComponent(tMatricula)
-                                .addComponent(tModelo)))))
+                            .addComponent(tAnio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                            .addComponent(tMatricula)
+                            .addComponent(tModelo))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -142,11 +141,11 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(114, 114, 114)
-                .addComponent(logo)
-                .addContainerGap(305, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(174, 174, 174)
+                .addComponent(logo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,14 +254,14 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tienes que poner un propietario correcto", "Propietario incorrecto", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-
+        //Si todo es validado devuelve true
         return correcto;
     }
 
     /**
      * Valida que la matrícula siga el patrón establecido
      *
-     * @return matrícula validada
+     * @return true si valida la matrícula y false si no valida 
      */
     public boolean validarMatricula() {
         Pattern pat = Pattern.compile("^[0-9]{4}-[A-Z]{3}$");
@@ -277,7 +276,7 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
     /**
      * Valida que el año siga el patrón establecido
      *
-     * @return año validado
+     * @return año true si el año es válido y false si no es válido
      */
     public boolean validarAño() {
         Pattern pat = Pattern.compile("[0-9]{4}$");

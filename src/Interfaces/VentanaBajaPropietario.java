@@ -255,7 +255,7 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
      * Comprueba que el dni sea correcto y no uno inventado
      *
      * @param dni parámetro que le pasa el dni introducido para validar.
-     * @return
+     * @return true or false en función de si el dni introducido es válido o no
      */
     private boolean compruebaDNI(String dni) {
         String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
@@ -318,7 +318,7 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
      * Al introducir el dni correcto, mostrará toda la información del
      * propietario
      *
-     * @param evt
+     * @param evt evento que rellena todos los campos del propietario
      */
     private void tDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tDniActionPerformed
         ResultSet rs = null;
@@ -379,11 +379,13 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
      * Método que deja todos los campos y tablas vacíos.
      */
     private void limpiarDatos() {
+        //Vacíamos los datos que hay en los campos
         tDni.setText("");
         tNombre.setText("");
         tApellido.setText("");
         tLefono.setText("");
         tProvincia.setText("");
+        //Deshabilitamos botones
         tNombre.setEnabled(false);
         tApellido.setEnabled(false);
         tLefono.setEnabled(false);

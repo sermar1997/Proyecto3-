@@ -14,7 +14,8 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Sergio
+ * @author Sergio Marco
+ * @version 23/05/2017
  */
 public class Conexion {
 
@@ -53,7 +54,7 @@ public class Conexion {
      * @param database nombre de la base de datos
      * @param usuario nombre del usuario que accede a la base de datos
      * @param password contraseña del usuario
-     * @return la conexión a la base 
+     * @return la conexión a la base
      */
     public boolean Conectar(String host, String puerto, String database, String usuario, String password) {
         try {
@@ -99,17 +100,29 @@ public class Conexion {
      *
      * @param consulta parámetro en el cual introduciremos la consulta sql
      * @return consulta sin parámetros
-     * @throws SQLException 
+     * @throws SQLException
      */
     public ResultSet consultaSinParametros(String consulta) throws SQLException {
         ResultSet rs = null;
         rs = prepararSentencia(consulta).executeQuery();
         return rs;
     }
-    public void confirmar() throws SQLException{
+
+    /**
+     * Método para confirmar los cambios realizados
+     *
+     * @throws SQLException
+     */
+    public void confirmar() throws SQLException {
         conexion.commit();
     }
-    public void descartar() throws SQLException{
+
+    /**
+     * Método para descartar los cambios realizados
+     *
+     * @throws SQLException
+     */
+    public void descartar() throws SQLException {
         conexion.rollback();
     }
 }

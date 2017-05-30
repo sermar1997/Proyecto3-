@@ -6,8 +6,6 @@
 package Interfaces;
 
 import Conexión.Conexion;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import marcobartolomesergioproyecto3.Excepcion;
@@ -33,7 +31,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("..\\Imagenes\\icono.jpg")).getImage());
         initComponents();
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -184,30 +181,45 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "No se ha podido exportar a XML", "Exportar", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Excepcion ex) {
-                            JOptionPane.showMessageDialog(this, "No se ha podido exportar a XML", "Exportar", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No se ha podido exportar a XML", "Exportar", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_bFicheroXMLActionPerformed
-
+/**
+ * Llama a la ventana que realiza un listado de propietarios
+ * @param evt parámetro que llama al evento que muestra la ventana que lista propietarios
+ */
     private void bListadoPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bListadoPropActionPerformed
         VentanaListadoPropietarios v = new VentanaListadoPropietarios(conn);
         v.setVisible(true);
     }//GEN-LAST:event_bListadoPropActionPerformed
-
+/**
+ * Llama a la ventana que realiza la baja de un propietario
+ * @param evt parámetro que llama al evento que muestra la ventana que da de baja propietarios
+ */
     private void bBajaPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBajaPropActionPerformed
         VentanaBajaPropietario v = new VentanaBajaPropietario(conn);
         v.setVisible(true);
     }//GEN-LAST:event_bBajaPropActionPerformed
-
+/**
+ * Llama a la ventana que realiza un listado de vehículos
+ * @param evt parámetro que llama al evento que muestra la ventana que lista vehículos
+ */
     private void bListadoVehiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bListadoVehiculosActionPerformed
         VentanaListadoVehiculos v = new VentanaListadoVehiculos(conn);
         v.setVisible(true);
     }//GEN-LAST:event_bListadoVehiculosActionPerformed
-
+/**
+ * Llama a la ventana que añade propietarios
+ * @param evt parámetro que llama al evento que muestra la ventana que añade propietarios
+ */
     private void BañadePropietarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BañadePropietarioActionPerformed
         VentanaAñadePropietario v = new VentanaAñadePropietario(conn);
         v.setVisible(true);
     }//GEN-LAST:event_BañadePropietarioActionPerformed
-
+/**
+ * Llama a la ventana que añade vehículos
+ * @param evt parámetro que llama al evento que muestra la ventana que añade vehículos
+ */
     private void BañadeVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BañadeVehiculoActionPerformed
         VentanaAñadeVehiculos v = new VentanaAñadeVehiculos(conn);
         v.setVisible(true);

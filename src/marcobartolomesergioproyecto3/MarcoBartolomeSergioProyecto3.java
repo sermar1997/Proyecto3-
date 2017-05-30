@@ -7,7 +7,6 @@ package marcobartolomesergioproyecto3;
 
 import Conexión.Conexion;
 import Interfaces.VentanaPrincipal;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,7 +20,7 @@ public class MarcoBartolomeSergioProyecto3 {
      */
     public static void main(String[] args) {
         Conexion conn = new Conexion();
-        //Conecto con la base de datos
+        //Si conecta con la base de datos
         if (conn.Conectar("localhost", "3306", "vehiculos", "usuario", "abcdef")) {
             //Llamo a la ventana principal
         VentanaPrincipal v = new VentanaPrincipal(conn);

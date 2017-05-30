@@ -23,7 +23,6 @@ public class VentanaAsignaPropietario extends javax.swing.JFrame {
     String matricula;
     Conexion conn;
     JTable tabla;
-    VentanaListadoVehiculos v = null;
 
     /**
      * Creates new form VentanaAsignaPropietario
@@ -32,13 +31,10 @@ public class VentanaAsignaPropietario extends javax.swing.JFrame {
      * parámetro
      * @param matricula del coche que le pasamos por parametro y a la cual vamos
      * a cambiar de propietario
-     * @param tabla es la tabla que le pasamos para que se actualice.
      */
-    public VentanaAsignaPropietario(Conexion conn, String matricula, JTable tabla) {
+    public VentanaAsignaPropietario(Conexion conn, String matricula) {
         this.conn = conn;
-        this.tabla = tabla;
         this.matricula = matricula;
-        v = new VentanaListadoVehiculos(conn);
         setIconImage(new ImageIcon(getClass().getResource("..\\Imagenes\\icono.jpg")).getImage());
         initComponents();
     }
@@ -163,7 +159,6 @@ public class VentanaAsignaPropietario extends javax.swing.JFrame {
                 //Ejecutamos la consulta
                 int resultado = ps.executeUpdate();
                 JOptionPane.showMessageDialog(this, "¡PROPIETARIO ACTUALIZADO!", "Propietario", JOptionPane.INFORMATION_MESSAGE);
-                v.RefrescarTabla(tabla);
                 //Cerramos la ventana
                 dispose();
 

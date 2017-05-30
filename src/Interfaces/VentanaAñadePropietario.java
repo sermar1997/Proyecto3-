@@ -9,13 +9,10 @@ import Conexión.Conexion;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import marcobartolomesergioproyecto3.Excepcion;
 
 /**
  * Clase que añade un propietario a la base de datos.
@@ -204,7 +201,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
                 tLefono.setText("");
                 tProvincia.setText("");
             } else {
-                //Si los campos están bien introducidos se lanza la consulta para añadir propietarios
+                //Si los campos están bien introducidos se lanza la consulta para añadir propietarios.
                 ps = conn.prepararSentencia("INSERT INTO PROPIETARIO VALUES (?,?,?,?,?)");
                 //Le damos los valores a los comodines de la consulta
                 ps.setString(1, tDni.getText());
@@ -220,7 +217,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
             }
 
         } catch (MySQLIntegrityConstraintViolationException e) {
-                JOptionPane.showMessageDialog(this,"Ya existe en la base de datos","Añadir Propietario", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ya existe en la base de datos", "Añadir Propietario", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException e) {
             if (e.getErrorCode() == 1062) {
                 JOptionPane.showMessageDialog(this, "Clave Primaria Repetida");

@@ -43,6 +43,7 @@ public class VentanaListadoVehiculos extends javax.swing.JFrame implements ListS
         //Asignamos un listener para que cuando no haya nada seleccionado el botón esté dehabilitado
         ListSelectionModel modeloSeleccion = Tabla.getSelectionModel();
         modeloSeleccion.addListSelectionListener(this);
+        //Deshabilitamos el botón
         BasigPropVe.setEnabled(false);
 
     }
@@ -63,6 +64,7 @@ public class VentanaListadoVehiculos extends javax.swing.JFrame implements ListS
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("LISTADO DE VEHÍCULOS");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -152,8 +154,9 @@ public class VentanaListadoVehiculos extends javax.swing.JFrame implements ListS
         //Guardamos la columna de la fila que habíamos guardado anteriormente
         String matricula = (String) Tabla.getValueAt(fila, 0);
         //Le pasamos por parámetro la conexión y la matrícula.
-        VentanaAsignaPropietario v = new VentanaAsignaPropietario(conn, matricula, Tabla);
+        VentanaAsignaPropietario v = new VentanaAsignaPropietario(conn, matricula);
         v.setVisible(true);
+        //Cerramos la ventana
         dispose();
     }//GEN-LAST:event_BasigPropVeActionPerformed
     /**
