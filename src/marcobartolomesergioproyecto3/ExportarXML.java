@@ -10,6 +10,7 @@ import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -142,7 +143,7 @@ public class ExportarXML {
             Transformer trans = TransformerFactory.newInstance().newTransformer();
             trans.transform(source, result);    
             }else{    
-                System.out.println("Fichero no existente");
+                JOptionPane.showConfirmDialog(null, "Fichero no existente", "XML", JOptionPane.ERROR_MESSAGE);
             return false;
             }
             

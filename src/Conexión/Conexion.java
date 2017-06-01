@@ -59,6 +59,7 @@ public class Conexion {
     public boolean Conectar(String host, String puerto, String database, String usuario, String password) {
         try {
             conexion = DriverManager.getConnection("jdbc:mysql://" + host + ":" + puerto + "/" + database, usuario, password);
+            conexion.setAutoCommit(false);
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

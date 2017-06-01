@@ -70,8 +70,13 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
         bVehiculo = new javax.swing.JButton();
         bProp = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("DAR  DE BAJA A PROPIETARIOS");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -396,6 +401,32 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
     }
 
     /**
+     * Método para que al cerrar una ventana nos guarde los cambios realizados o
+     * los descarte
+     */
+    public void cerrar() {
+        Object[] opciones = {"Guardar Cambios", "Descartar Cambios"};
+        int eleccion = JOptionPane.showOptionDialog(rootPane, "¿Desea realizar los cambios?", "Mensaje de Confirmacion",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
+        if (eleccion == JOptionPane.YES_OPTION) {
+            try {
+                conn.confirmar();
+                dispose();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "No se ha podido realizar los cambios", "Confirmar", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            try {
+                conn.descartar();
+                dispose();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "No se ha podido realizar los cambios", "Confirmar", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    /**
      * Método que deja la tabla en blanco
      */
     private void LimpiarTabla() {
@@ -489,6 +520,10 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_bPropActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        cerrar();
+    }//GEN-LAST:event_formWindowClosing
     /**
      * Método que rellena la tabla con los vehículos que posee un propietario
      */

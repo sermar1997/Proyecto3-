@@ -7,6 +7,7 @@ package marcobartolomesergioproyecto3;
 
 import Conexión.Conexion;
 import Interfaces.VentanaPrincipal;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,7 +27,8 @@ public class MarcoBartolomeSergioProyecto3 {
         VentanaPrincipal v = new VentanaPrincipal(conn);
         v.setVisible(true);
         }else{
-            System.out.println("No se ha podido conectar con la base de datos.");
+            //Muestro mensaje de error
+            JOptionPane.showMessageDialog(null, "No se ha podido conectar con la base de datos", "Conexión", JOptionPane.ERROR_MESSAGE);
         }
         
         

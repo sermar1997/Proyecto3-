@@ -55,8 +55,13 @@ public class VentanaAsignaPropietario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("ASIGNAR PROPIETARIO");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -160,8 +165,6 @@ public class VentanaAsignaPropietario extends javax.swing.JFrame {
                 //Ejecutamos la consulta
                 int resultado = ps.executeUpdate();
                 JOptionPane.showMessageDialog(this, "¡PROPIETARIO ACTUALIZADO!", "Propietario", JOptionPane.INFORMATION_MESSAGE);
-                //Cerramos la ventana
-                dispose();
 
             }
         } catch (SQLException e) {
@@ -188,6 +191,36 @@ public class VentanaAsignaPropietario extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_bCambiaPropActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        cerrar();
+    }//GEN-LAST:event_formWindowClosing
+    /**
+     * Método para que al cerrar una ventana nos guarde los cambios realizados o
+     * los descarte
+     */
+    public void cerrar() {
+        Object[] opciones = {"Guardar Cambios", "Descartar Cambios"};
+        int eleccion = JOptionPane.showOptionDialog(rootPane, "¿Desea realizar los cambios?", "Mensaje de Confirmacion",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
+        if (eleccion == JOptionPane.YES_OPTION) {
+            try {
+                conn.confirmar();
+                dispose();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "No se ha podido realizar los cambios", "Confirmar", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            try {
+                conn.descartar();
+                dispose();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "No se ha podido realizar los cambios", "Confirmar", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
     /**
      * Método que comprueba si el dni es correcto
      *

@@ -50,8 +50,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         bFicheroXML = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("SMOTORS");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         Panel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -184,46 +189,74 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No se ha podido exportar a XML", "Exportar", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_bFicheroXMLActionPerformed
-/**
- * Llama a la ventana que realiza un listado de propietarios
- * @param evt parámetro que llama al evento que muestra la ventana que lista propietarios
- */
+    /**
+     * Llama a la ventana que realiza un listado de propietarios
+     *
+     * @param evt parámetro que llama al evento que muestra la ventana que lista
+     * propietarios
+     */
     private void bListadoPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bListadoPropActionPerformed
         VentanaListadoPropietarios v = new VentanaListadoPropietarios(conn);
         v.setVisible(true);
     }//GEN-LAST:event_bListadoPropActionPerformed
-/**
- * Llama a la ventana que realiza la baja de un propietario
- * @param evt parámetro que llama al evento que muestra la ventana que da de baja propietarios
- */
+    /**
+     * Llama a la ventana que realiza la baja de un propietario
+     *
+     * @param evt parámetro que llama al evento que muestra la ventana que da de
+     * baja propietarios
+     */
     private void bBajaPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBajaPropActionPerformed
         VentanaBajaPropietario v = new VentanaBajaPropietario(conn);
         v.setVisible(true);
     }//GEN-LAST:event_bBajaPropActionPerformed
-/**
- * Llama a la ventana que realiza un listado de vehículos
- * @param evt parámetro que llama al evento que muestra la ventana que lista vehículos
- */
+    /**
+     * Llama a la ventana que realiza un listado de vehículos
+     *
+     * @param evt parámetro que llama al evento que muestra la ventana que lista
+     * vehículos
+     */
     private void bListadoVehiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bListadoVehiculosActionPerformed
         VentanaListadoVehiculos v = new VentanaListadoVehiculos(conn);
         v.setVisible(true);
     }//GEN-LAST:event_bListadoVehiculosActionPerformed
-/**
- * Llama a la ventana que añade propietarios
- * @param evt parámetro que llama al evento que muestra la ventana que añade propietarios
- */
+    /**
+     * Llama a la ventana que añade propietarios
+     *
+     * @param evt parámetro que llama al evento que muestra la ventana que añade
+     * propietarios
+     */
     private void BañadePropietarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BañadePropietarioActionPerformed
         VentanaAñadePropietario v = new VentanaAñadePropietario(conn);
         v.setVisible(true);
     }//GEN-LAST:event_BañadePropietarioActionPerformed
-/**
- * Llama a la ventana que añade vehículos
- * @param evt parámetro que llama al evento que muestra la ventana que añade vehículos
- */
+    /**
+     * Llama a la ventana que añade vehículos
+     *
+     * @param evt parámetro que llama al evento que muestra la ventana que añade
+     * vehículos
+     */
     private void BañadeVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BañadeVehiculoActionPerformed
         VentanaAñadeVehiculos v = new VentanaAñadeVehiculos(conn);
         v.setVisible(true);
     }//GEN-LAST:event_BañadeVehiculoActionPerformed
+    /**
+     * Método que al cerrar la ventana cierre la conexión y salga del programa o
+     * no muestre nada.
+     */
+    public void cerrar() {
+        Object[] opciones = {"Aceptar", "Cancelar"};
+        int eleccion = JOptionPane.showOptionDialog(rootPane, "En realidad desea realizar cerrar la aplicacion", "Mensaje de Confirmacion",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
+        if (eleccion == JOptionPane.YES_OPTION) {
+            conn.Desconectar();
+            System.exit(0);
+        } else {
+        }
+    }
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        cerrar();
+    }//GEN-LAST:event_formWindowClosing
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
