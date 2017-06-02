@@ -6,6 +6,7 @@
 package Interfaces;
 
 import Conexión.Conexion;
+import java.awt.Color;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -330,10 +331,10 @@ public class VentanaBajaPropietario extends javax.swing.JFrame {
         ResultSet rs = null;
         PreparedStatement ps = null;
         try {
-            //Si el dni no es correcto mostrará un mensaje de error y deberá introducirlo otra vez
+            //Si el dni no es correcto mostrará un mensaje de error.
             if (!compruebaDNI(tDni.getText())) {
+                tDni.setForeground(Color.red);
                 JOptionPane.showMessageDialog(this, "!DNI INCORRECTO¡", "DNI incorrecto", JOptionPane.ERROR_MESSAGE);
-                tDni.setText("");
             } else {
                 //Si es correcto se habilitan los botones
                 tNombre.setEnabled(true);

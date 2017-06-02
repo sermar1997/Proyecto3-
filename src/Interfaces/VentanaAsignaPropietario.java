@@ -6,6 +6,7 @@
 package Interfaces;
 
 import Conexión.Conexion;
+import java.awt.Color;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
@@ -152,10 +153,11 @@ public class VentanaAsignaPropietario extends javax.swing.JFrame {
     private void bCambiaPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCambiaPropActionPerformed
         PreparedStatement ps = null;
         try {
-            //Si el dni es incorrecto saltará el error y deberemos volver a escribirlo
+            //Si el dni es incorrecto saltará el error.
             if (!compruebaDNI(tDni.getText())) {
+                tDni.setForeground(Color.red);
                 JOptionPane.showMessageDialog(this, "DNI incorrecto o no existe en la base de datos.", "DNI incorrecto", JOptionPane.ERROR_MESSAGE);
-                tDni.setText("");
+                
             } else {
                 //Si el dni es correcto lanzamos la consulta
                 ps = conn.prepararSentencia("UPDATE VEHICULO SET PROPIETARIO=? WHERE MATRICULA=? ");

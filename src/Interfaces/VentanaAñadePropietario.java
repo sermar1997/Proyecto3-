@@ -7,6 +7,7 @@ package Interfaces;
 
 import Conexión.Conexion;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+import java.awt.Color;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
@@ -201,11 +202,6 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
         try {
             //Si algún campo está mal introducido se volverán a poner todos desde 0
             if (!validaTodo()) {
-                tDni.setText("");
-                tNombre.setText("");
-                tApellido.setText("");
-                tLefono.setText("");
-                tProvincia.setText("");
             } else {
                 //Si los campos están bien introducidos se lanza la consulta para añadir propietarios.
                 ps = conn.prepararSentencia("INSERT INTO PROPIETARIO VALUES (?,?,?,?,?)");
@@ -264,9 +260,12 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
             }
         }
     }
+
     /**
-     * Evento para que al cerrar te de la opción de guardar los cambios o descartarlos
-     * @param evt 
+     * Evento para que al cerrar te de la opción de guardar los cambios o
+     * descartarlos
+     *
+     * @param evt
      */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         cerrar();
@@ -279,34 +278,43 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
     public boolean validaTodo() {
         boolean correcto = false;
         if (compruebaDNI(tDni.getText())) {
+            tDni.setForeground(Color.GREEN);
             correcto = true;
         } else {
+            tDni.setForeground(Color.red);
             JOptionPane.showMessageDialog(this, "Tienes que poner un dni correcto", "DNI Incorrecto", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         if (validaNombre()) {
+            tNombre.setForeground(Color.GREEN);
             correcto = true;
         } else {
+            tNombre.setForeground(Color.red);
             return false;
         }
 
         if (validaApellido()) {
+            tApellido.setForeground(Color.GREEN);
             correcto = true;
         } else {
+            tApellido.setForeground(Color.red);
             return false;
         }
 
         if (validaTelefono()) {
+            tLefono.setForeground(Color.GREEN);
             correcto = true;
         } else {
+            tLefono.setForeground(Color.red);            
             return false;
         }
 
         if (validaProvincia()) {
+            tProvincia.setForeground(Color.GREEN);
             correcto = true;
         } else {
-
+            tProvincia.setForeground(Color.red);
             return false;
         }
         return correcto;

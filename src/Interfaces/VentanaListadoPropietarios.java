@@ -180,7 +180,7 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            //Si los dos campos están vacíos pediremos que introduzca datos
+            //Si los dos campos están vacíos saldrán todos los datos
             if (tVehiculos.getText().isEmpty() && tProvincia.getText().isEmpty()) {
                 LimpiarTabla();
                 rellenaTabla();

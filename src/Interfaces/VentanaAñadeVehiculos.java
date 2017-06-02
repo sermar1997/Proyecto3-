@@ -6,6 +6,7 @@
 package Interfaces;
 
 import Conexión.Conexion;
+import java.awt.Color;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
@@ -184,7 +185,7 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
     private void bAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAñadirActionPerformed
         PreparedStatement ps = null;
         try {
-            //Si no valida todos los campos se volverá a introducir todo desde 0
+            //Si no valida, el campo que de error se pondrá de color rojo
             if (!validaTodo()) {
 
             } else {
@@ -270,30 +271,33 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
         boolean correcto = false;
         //Si valida devolverá true, sino mostrará mensaje de error y devolverá falso
         if (validarMatricula()) {
+            tMatricula.setForeground(Color.GREEN);
             correcto = true;
         } else {
-            tMatricula.setText("");
+            tMatricula.setForeground(Color.red);
             JOptionPane.showMessageDialog(this, "Tienes que poner una matrícula correcta", "Matricula incorrecta", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         if (!tModelo.getText().isEmpty()) {
+            
             correcto = true;
         } else {
-            tModelo.setText("");
+            tModelo.setForeground(Color.red);
             JOptionPane.showMessageDialog(this, "Tienes que poner un modelo correcto", "Modelo incorrecto", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         if (validarAño()) {
+            tAnio.setForeground(Color.GREEN);
             correcto = true;
         } else {
-            tAnio.setText("");
+            tAnio.setForeground(Color.red);
             JOptionPane.showMessageDialog(this, "Tienes que introducir un año correcto", "Año incorrecto", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         if (!tProp.getText().isEmpty()) {
             correcto = true;
         } else {
-            tProp.setText("");
+            tProp.setForeground(Color.red);
             JOptionPane.showMessageDialog(this, "Tienes que poner un propietario correcto", "Propietario incorrecto", JOptionPane.ERROR_MESSAGE);
             return false;
         }
