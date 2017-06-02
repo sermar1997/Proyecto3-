@@ -306,7 +306,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
             tLefono.setForeground(Color.GREEN);
             correcto = true;
         } else {
-            tLefono.setForeground(Color.red);            
+            tLefono.setForeground(Color.red);
             return false;
         }
 
@@ -323,7 +323,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
     /**
      * Método que valida que el nombre que introducimos siga el siguiente patrón
      *
-     * @return nombre validado
+     * @return true si valida el patrón y false si no lo valida
      */
     public boolean validaNombre() {
         Pattern pat = Pattern.compile("^[A-Z].*[a-z].*");
@@ -340,7 +340,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
      * Método que valida que el apellido que introducimos siga el siguiente
      * patrón
      *
-     * @return apellido validado
+     * @return true si valida el apellido y false si no lo valida
      */
     public boolean validaApellido() {
         Pattern pat = Pattern.compile("^[A-Z].*[a-z].*");
@@ -357,10 +357,10 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
      * Método que valida que el teléfono que introducimos siga el siguiente
      * patrón
      *
-     * @return telefono validado
+     * @return true si el teléfono es válido y false si no lo valida
      */
     public boolean validaTelefono() {
-        Pattern pat = Pattern.compile("^(\\+?)([0-9]{2})?[9|6|7][0-9]{8}$");
+        Pattern pat = Pattern.compile("^(\\+?)([0-9]{2})?[9|8|6|7][0-9]{8}$");
         Matcher mat = pat.matcher(tLefono.getText());
         if (mat.matches()) {
             return true;
@@ -374,7 +374,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
      * Método que valida que la provincia que introducimos siga el siguiente
      * patrón
      *
-     * @return provincia validada
+     * @return true si la provincia es válida y false si no lo es
      */
     public boolean validaProvincia() {
         Pattern pat = Pattern.compile("(Zaragoza|Huesca|Teruel)");
@@ -391,7 +391,7 @@ public class VentanaAñadePropietario extends javax.swing.JFrame {
      * Método que valida que el dni que introducimos sea correcto y no inventado
      *
      * @param dni parámetro que pasa el dni introducido.
-     * @return dni validado
+     * @return true si el dni es válido y false si no lo es
      */
     private boolean compruebaDNI(String dni) {
         String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
