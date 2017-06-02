@@ -254,6 +254,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         } else {
         }
     }
+    /**
+     * Método que cuando se está cerrando la ventana te da la opción de cerrar o no hacer nada
+     * @param evt 
+     */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         cerrar();
     }//GEN-LAST:event_formWindowClosing
