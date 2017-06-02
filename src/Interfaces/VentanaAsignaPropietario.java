@@ -154,7 +154,7 @@ public class VentanaAsignaPropietario extends javax.swing.JFrame {
         try {
             //Si el dni es incorrecto saltará el error y deberemos volver a escribirlo
             if (!compruebaDNI(tDni.getText())) {
-                JOptionPane.showMessageDialog(this, "DNI incorrecto.", "DNI incorrecto", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "DNI incorrecto o no existe en la base de datos.", "DNI incorrecto", JOptionPane.ERROR_MESSAGE);
                 tDni.setText("");
             } else {
                 //Si el dni es correcto lanzamos la consulta
