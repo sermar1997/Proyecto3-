@@ -182,7 +182,8 @@ public class VentanaListadoPropietarios extends javax.swing.JFrame {
         try {
             //Si los dos campos están vacíos pediremos que introduzca datos
             if (tVehiculos.getText().isEmpty() && tProvincia.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Rellena algún campo", "Filtrar", JOptionPane.ERROR_MESSAGE);
+                LimpiarTabla();
+                rellenaTabla();
             }else
             //Si el campo de nº de vehículos está vacío
             if (tVehiculos.getText().isEmpty()) {
