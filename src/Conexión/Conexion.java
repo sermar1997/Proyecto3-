@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
+ * Clase que utilizaremos para conectarnos a la base de datos y para realuzar
+ * sentencias sql
  *
  * @author Sergio Marco
  * @version 23/05/2017
