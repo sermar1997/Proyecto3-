@@ -251,6 +251,13 @@ public class VentanaAñadeVehiculos extends javax.swing.JFrame {
             }
         }
     }
+
+    /**
+     * Evento para que al cerrar te de la opción de guardar los cambios o
+     * descartarlos
+     *
+     * @param evt
+     */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         cerrar();
     }//GEN-LAST:event_formWindowClosing

@@ -191,7 +191,12 @@ public class VentanaAsignaPropietario extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_bCambiaPropActionPerformed
-
+    /**
+     * Evento para que al cerrar te de la opción de guardar los cambios o
+     * descartarlos
+     *
+     * @param evt
+     */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         cerrar();
     }//GEN-LAST:event_formWindowClosing
